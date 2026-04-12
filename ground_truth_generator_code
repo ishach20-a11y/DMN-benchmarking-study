@@ -1,0 +1,204 @@
+# ground_truth_generation.py
+# Run this ONCE to generate XML ground truth for descriptions that lack human-made models.
+# Uses temperature=0 (greedy/deterministic) — no randomness, no iteration loops.
+
+# ── 0. Setup ──────────────────────────────────────────────────────────────────
+!nvidia-smi
+!pip install -q transformers accelerate bitsandbytes
+
+import torch, re, os
+import xml.etree.ElementTree as ET
+from xml.dom import minidom
+from transformers import (
+    pipeline, AutoTokenizer,
+    AutoModelForCausalLM, BitsAndBytesConfig
+)
+
+os.makedirs("ground_truth/xml", exist_ok=True)
+
+# ── 1. Model Loading ───────────────────────────────────────────────────────────
+MODEL_ID = "mistralai/Mistral-7B-Instruct-v0.2"
+
+bnb_config = BitsAndBytesConfig(
+    load_in_4bit=True,
+    bnb_4bit_quant_type="nf4",
+    bnb_4bit_compute_dtype=torch.bfloat16,
+    bnb_4bit_use_double_quant=True,
+)
+model = AutoModelForCausalLM.from_pretrained(
+    MODEL_ID, quantization_config=bnb_config, device_map="auto"
+)
+tokenizer = AutoTokenizer.from_pretrained(MODEL_ID)
+pipe = pipeline("text-generation", model=model, tokenizer=tokenizer)
+
+# ── 2. Descriptions (only those WITHOUT human ground truth) ───────────────────
+# Do NOT put descriptions here if you already have a human-made XML for them.
+descriptions_needing_gt = {
+    "pet": {
+        "text": "A couple is planning their future and is determining under which conditions a certain pet is adopted.Together they decided that if someone has allergies and that no one has  time to take care of a pet then that no pet is adopted. The couple also decided to not take in an animal if they don't have kids, don't have time even if they don't have allergies. However, if they have a an average amount of time available or a lot and even if they have allergies then they want to take in a fish. The couple decides that they also want a fish if they have kids, no allergies even if they don't have a lot of time available. The couple decides to take in a cat or a dog only if no one has allergies. A dog is taken in if they have a garden, kids and they have a lot of time. The dog is also adopted if they have a garden, no kids and have normal or a lot of time to spare. In all the remaining cases, the couple decides they want to have a cat.",
+    },
+    "drivers license": {
+        "text": "A person is eligible to get their driver's license based on their age, on being a national resident and if they have sufficient practical skills. The practical skills are evaluated based on the theoretical knowledge, driving skills, maneuvring skills and anticipation capabilities. Each of these aspects are evaluated with 'Excellent', 'Good' or 'Fail'. A person only passes the practical skills if they have no fails on any of the 4 aspects making up the practical skills. A person can only receive their driver's license if they are 18 or more, are a national resident and passed their practical skills test. ",
+    },
+    "Holiday days": {
+        "text": "Every employee receives at least 22 days. Additional days are provided according to the following criteria: Only employees younger than 18 or at least 60 years, or employees with at least 30 years of service will receive 5 extra days. Employees with at least 30 years of service and also employees of age 60 or more, receive 3 extra days, on top of possible additional days already given. If an employee has at least 15 but less than 30 years of service, 2 extra days are given. These 2 days are also provided for employees of age 45 or more. These 2 extra days can not be combined with the extra 5 days.",
+    },
+    "mode of transportation": {
+        "text": "A person has the possibility to chose out of three transportation modes: walking, bike and driving a car. This person makes their transportation mode choice based on the distance, weather and whether that person is in a hurry. If the distance is bigger or equal to 10 and the person is not in a hurry, then the bike chosen if it is sunny or cloudy and if it is rainy or freezing then the car is chosen. In any case if the distance is more than 10 and the person is in a hurry then the model of transportation is car. For medium distances between 5 and 10 kilometers, if it is raining the car is chosen. For the same medium distance, if the person is in a hurry the car is chosen. Again for medium distances and there is no hurry to arrive, the bike chosen if it sunny or cloudy and if it is freezing then the car is chosen. For a distance between 2 and 5 kilometers, the car is chosen if it raining or if the person is in a hurry and it is sunny, cloudy or freezing outside, otherwise the bike is chosen. Finally for a small distance smaller than 2 kilometers, it the person is in a hurry the bike is chosen otherwise the person will go by foot.",
+    },
+    "scholarship": {
+        "text": "An institution decides to distribute scholarships but can obviously not give them to everyone. Therefore, they decide to distribute them based on the grades, annual income and whether that person already received any scholarships for the year they are applying to. In short a person can only be eligible for a scholarship if the grades are excellent or good, they earn less than 50000 a year and have not received any other scholarship yet. All the other cases make that the person is not eligible for that scholarship.",
+    },
+    "Drug Utilization Review logic": {
+        "text": "The first step is to establish the patient's risk profile. Using data such as age, pregnancy or lactation status, and chronic conditions (for example renal or hepatic impairment, diabetes, or hypertension), the system classifies the patient into categories such as Standard adult, Pediatric, Geriatric, Pregnant or lactating, Renal/hepatic impaired, or Multiple risk factors. Next, the system determines the drug's safety classification. Each medication is mapped to safety attributes: for example Standard, Pediatric restricted, Requires renal adjustment, Requires hepatic adjustment, Teratogenic, or High-risk class (such as opioids or anticoagulants). The DUR then evaluates interaction severity. It compares the prescribed drug with the patient's current medication list and chronic conditions to detect none, mild, moderate, or severe interactions. In parallel, the system verifies dose appropriateness. It checks whether the prescribed dose and frequency are suitable for the patient's risk profile and the drug's safety class. Finally, the system combines these intermediate results with any allergy alerts... to determine the DUR outcome. Possible outcomes are: Accept, Accept with counseling, Request change, or Cancel.",
+    },
+    "insurance coverage": {
+        "text": "The first step is to determine the drug category. Each medication is mapped to one of several categories in the MediPoint formulary: Generic drug, Preferred brand-name drug, Non-preferred brand-name drug, Specialty drug, or Preventive medication. Using the drug category and the specialty requirements, the system calculates a base coverage percentage: * Generic drugs are typically covered at 90 percent. * Preferred brand-name drugs are covered at 70 percent. * Non-preferred brands are covered at 50 percent. * Preventive medications, such as vaccines, are fully covered. * Specialty drugs: By default, coverage is 30 percent. If the patient is younger than 16 and prior authorization has been granted, coverage increases to 90 percent. If the patient is younger than 16 but has not followed step therapy, coverage is reduced to 60 percent. For patients 16 or older, step therapy can increase coverage from 30 to 50 percent. Specialty drugs prescribed for chronic diseases are always covered at 80 percent, regardless of age or other requirements. The system classifies... substitutions as either low risk (safe to swap and re-run the DUR automatically) or high risk (requires prescriber approval before switching). Finally, the system combines the base coverage percentage with the substitution result to produce the final coverage outcome.",
+    },
+    "marketing": {
+        "text": "A marketing company wishes to construct a decision table to decide how to treat clients according to three characteristics: Gender, City Dweller, and age group: A (under 30), B (between 30 and 60), C (over 60). The company has four products (W, X, Y and Z) to test market. Product W will appeal to female city dwellers. Product X will appeal to young females. Product Y will appeal to Male middle aged shoppers who do not live in cities. Product Z will appeal to all but older females.",
+    },
+    "burglar": {
+        "text": "When a burglar alarm sounds, if it is in one of students’ houses where alarm sounds every week, ignore it. Otherwise have a look outside and if the house looks not broken into and there is nobody moving inside it, ignore the alarm. Otherwise call police",
+    },
+    "infra-red reading": {
+        "text": "A program receives 4 readings on each single cell. If the infra-red reading is between 50 and 100 inclusive, the ultra-violet reading is between 20 and 60 inclusive, the gamma reading is between 70 and 120 inclusive and the x-ray reading is between 30 and 90 inclusive then the cell is marked as clear. If the infra-red reading is outside 50 and 100 inclusive the cell is marked as infra-red contaminated. If the ultra-violet reading is outside 20 and 60 inclusive the cell is marked as ultra-violet contaminated. If the gamma reading is outside 70 and 120 inclusive the cell is marked as gamma contaminated. If the x-ray reading is outside 30 and 90 inclusive the cell is marked as x-ray contaminated",
+    }
+    # Add more as needed...
+}
+
+# ── 3. Prompt Builder ──────────────────────────────────────────────────────────
+def build_prompt(description: str) -> str:
+    return f"""<s>[INST] You are a DMN expert. Your task is to extract the complete Decision Model from the text.
+
+1. Identify all Input Data and Decision nodes (DRD).
+2. For each decision, provide a Decision Table in Markdown format.
+3. The table must have columns for Inputs and a column for the Output.
+4. Clearly label each table with a heading like: ## Decision: <decision name>
+
+Text: '{description}' [/INST]</s>"""
+
+# ── 4. Markdown Table Parser ───────────────────────────────────────────────────
+def parse_markdown_tables(text: str) -> list[dict]:
+    tables = []
+    sections = re.split(r'#{1,3}\s*Decision[:\s]+', text, flags=re.IGNORECASE)
+
+    for section in sections[1:]:
+        lines = section.strip().splitlines()
+        if not lines:
+            continue
+
+        decision_name = lines[0].strip().strip("*_").strip()
+        table_lines   = [l for l in lines if l.strip().startswith("|")]
+
+        if len(table_lines) < 3:
+            continue
+
+        headers = [h.strip() for h in table_lines[0].split("|") if h.strip()]
+        rows = []
+        for row_line in table_lines[2:]:
+            cells = [c.strip() for c in row_line.split("|") if c.strip()]
+            if cells and not all(re.match(r'^-+$', c) for c in cells):
+                rows.append(cells)
+
+        if headers and rows:
+            tables.append({"name": decision_name, "headers": headers, "rows": rows})
+
+    return tables
+
+# ── 5. DMN XML Builder ─────────────────────────────────────────────────────────
+def sanitize_id(name: str) -> str:
+    return re.sub(r'[^a-zA-Z0-9_-]', '_', name).strip('_')
+
+def build_dmn_xml(desc_id: str, tables: list[dict]) -> str:
+    NS    = "https://www.omg.org/spec/DMN/20191111/MODEL/"
+    DMNDI = "https://www.omg.org/spec/DMN/20191111/DMNDI/"
+    DC    = "http://www.omg.org/spec/DMN/20180521/DC/"
+    ET.register_namespace("",      NS)
+    ET.register_namespace("dmndi", DMNDI)
+    ET.register_namespace("dc",    DC)
+
+    definitions = ET.Element("definitions", {
+        "xmlns":           NS,
+        "xmlns:dmndi":     DMNDI,
+        "xmlns:dc":        DC,
+        "id":              f"definitions_{sanitize_id(desc_id)}",
+        "name":            desc_id,
+        "namespace":       "http://camunda.org/schema/1.0/dmn",
+        "exporter":        "LLM DMN Generator",
+        "exporterVersion": "1.0",
+    })
+
+    for table in tables:
+        table_id       = f"decision_{sanitize_id(table['name'])}"
+        input_headers  = table["headers"][:-1]
+        output_header  = table["headers"][-1]
+
+        decision_el = ET.SubElement(definitions, "decision", {
+            "id": table_id, "name": table["name"]
+        })
+        dt = ET.SubElement(decision_el, "decisionTable", {
+            "id": f"dt_{sanitize_id(table['name'])}", "hitPolicy": "UNIQUE"
+        })
+
+        for i, header in enumerate(input_headers):
+            inp = ET.SubElement(dt, "input", {
+                "id": f"input_{sanitize_id(table['name'])}_{i}", "label": header
+            })
+            ET.SubElement(inp, "inputExpression", {
+                "id":      f"inputExpr_{sanitize_id(table['name'])}_{i}",
+                "typeRef": "string",
+            }).text = header.lower().replace(" ", "_")
+
+        ET.SubElement(dt, "output", {
+            "id":      f"output_{sanitize_id(table['name'])}",
+            "label":   output_header,
+            "name":    output_header.lower().replace(" ", "_"),
+            "typeRef": "string",
+        })
+
+        for r_idx, row in enumerate(table["rows"]):
+            rule   = ET.SubElement(dt, "rule", {
+                "id": f"rule_{sanitize_id(table['name'])}_{r_idx}"
+            })
+            padded = (row + [""] * len(table["headers"]))[:len(table["headers"])]
+
+            for c_idx, cell in enumerate(padded[:-1]):
+                ET.SubElement(rule, "inputEntry", {
+                    "id": f"ie_{sanitize_id(table['name'])}_{r_idx}_{c_idx}"
+                }).text = f'"{cell}"' if cell else ""
+
+            ET.SubElement(rule, "outputEntry", {
+                "id": f"oe_{sanitize_id(table['name'])}_{r_idx}"
+            }).text = f'"{padded[-1]}"' if padded[-1] else ""
+
+    raw  = ET.tostring(definitions, encoding="unicode", xml_declaration=False)
+    pretty = minidom.parseString(raw).toprettyxml(indent="  ")
+    return '<?xml version="1.0" encoding="UTF-8"?>\n' + "\n".join(pretty.splitlines()[1:])
+
+# ── 6. Generate Ground Truth ───────────────────────────────────────────────────
+for desc_id, desc_info in descriptions_needing_gt.items():
+    print(f"▶ Generating ground truth for: {desc_id}")
+    prompt   = build_prompt(desc_info["text"])
+
+    output   = pipe(
+        prompt,
+        max_new_tokens=2048,
+        do_sample=False,          # greedy — fully deterministic
+        temperature=None,
+    )
+
+    response = output[0]["generated_text"][len(prompt):].strip()
+    tables   = parse_markdown_tables(response)
+
+    if tables:
+        xml_str  = build_dmn_xml(desc_id, tables)
+        xml_path = f"ground_truth/xml/{desc_id}.xml"
+        with open(xml_path, "w", encoding="utf-8") as f:
+            f.write(xml_str)
+        print(f"  ✅ Saved → {xml_path}  ({len(tables)} table(s))")
+    else:
+        print(f"  ⚠️  No tables parsed — printing raw response for manual inspection:")
+        print(response)
+
+print("\n✅ Ground truth generation complete.")
