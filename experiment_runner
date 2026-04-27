@@ -1,0 +1,218 @@
+# experiment_runner.py
+# 3 few-shot descriptions + 12 zero-shot descriptions
+# Same temperatures and iterations for all.
+
+# ── 0. Setup ───────────────────────────────────────────────────────────────────
+!nvidia-smi
+!pip install -q transformers accelerate bitsandbytes pandas
+
+import torch, os
+import pandas as pd
+from transformers import (
+    pipeline, AutoTokenizer,
+    AutoModelForCausalLM, BitsAndBytesConfig
+)
+
+os.makedirs("experiments/csv", exist_ok=True)
+
+# ── 1. Model Loading ───────────────────────────────────────────────────────────
+MODEL_ID = "mistralai/Mistral-7B-Instruct-v0.2"
+
+bnb_config = BitsAndBytesConfig(
+    load_in_4bit=True,
+    bnb_4bit_quant_type="nf4",
+    bnb_4bit_compute_dtype=torch.bfloat16,
+    bnb_4bit_use_double_quant=True,
+)
+model = AutoModelForCausalLM.from_pretrained(
+    MODEL_ID, quantization_config=bnb_config, device_map="auto"
+)
+tokenizer = AutoTokenizer.from_pretrained(MODEL_ID)
+pipe = pipeline("text-generation", model=model, tokenizer=tokenizer)
+
+
+# ── 2. Load Few-Shot Example XMLs ──────────────────────────────────────────────
+# Place your 2 fixed example XML files in an "examples/" folder.
+# These are NOT the same as the 3 few-shot test descriptions —
+# they are the reference models shown to the LLM as examples.
+
+def load_example(xml_path: str) -> str:
+    with open(xml_path, "r", encoding="utf-8") as f:
+        return f.read()
+
+example_1_xml  = load_example("examples/example_1.xml")
+example_2_xml  = load_example("examples/example_2.xml")
+
+example_1_text = "Your first example description here..."
+example_2_text = "Your second example description here..."
+
+
+# ── Load Few-Shot Example XMLs ─────────────────────────────────────────────
+example_1_xml  = load_example("examples/example_1.xml")
+example_2_xml  = load_example("examples/example_2.xml")      # removed example_3
+
+example_1_text = "Your first example description here..."
+example_2_text = "Your second example description here..."    # removed example_3
+
+# ── 3. Prompt Builders ─────────────────────────────────────────────────────────
+def build_few_shot_prompt(description: str) -> str:
+    return f"""<s>[INST] You are an expert in DMN diagram generation.
+
+Examine the following 2 examples of DMN models including their input textual \
+descriptions and the corresponding DMN XML files of the Decision Requirements \
+Diagrams (DRDs). You will need them for future output generation.
+
+The DMN XML files are named "DMN 1" and "DMN 2". The matching textual \
+descriptions according to their numbering are the following:
+
+Example 1 Input: {example_1_text}
+DMN 1:
+{example_1_xml}
+
+Example 2 Input: {example_2_text}
+DMN 2:
+{example_2_xml}
+
+Generate a DRD in DMN XML for the new DMN textual description provided below. \
+Do not include any explanations or text. Use ovals for input data and rectangles \
+for decision data. Keep the arrows going bottom-up from inputs to decisions.
+
+Keep the following structure when providing your answer:
+Input textual description: (input text)
+Output DRD and decision table DMN XML: (DMN XML code)
+
+Text: '{description}' [/INST]</s>"""
+
+
+def build_zero_shot_prompt(description: str) -> str:
+    return f"""<s>[INST] You are an expert in DMN diagram generation.
+
+Generate a DRD in DMN XML for the new DMN textual description provided below. \
+Do not include any explanations or text. Use ovals for input data and rectangles \
+for decision data. Keep the arrows going bottom-up from inputs to decisions.
+
+Keep the following structure when providing your answer:
+Input textual description: (input text)
+Output DRD and decision table DMN XML: (DMN XML code)
+
+Text: '{description}' [/INST]</s>"""
+
+
+# ── 4. Descriptions ────────────────────────────────────────────────────────────
+# 3 few-shot + 12 zero-shot = 15 total
+# These are completely separate descriptions from each other.
+
+descriptions = {
+
+    # ── Few-shot (3) ───────────────────────────────────────────────────────────
+    "few_shot_1": {
+        "text": "Your first few-shot description here...",
+        "gt_source": "human",
+        "prompting_strategy": "few_shot",
+    },
+    "few_shot_2": {
+        "text": "Your second few-shot description here...",
+        "gt_source": "llm",
+        "prompting_strategy": "few_shot",
+    },
+    "few_shot_3": {
+        "text": "Your third few-shot description here...",
+        "gt_source": "human",
+        "prompting_strategy": "few_shot",
+    },
+
+    # ── Zero-shot (12) ─────────────────────────────────────────────────────────
+    "zero_shot_1": {
+        "text": "Your first zero-shot description here...",
+        "gt_source": "human",
+        "prompting_strategy": "zero_shot",
+    },
+    "zero_shot_2": {
+        "text": "Your second zero-shot description here...",
+        "gt_source": "llm",
+        "prompting_strategy": "zero_shot",
+    },
+    # ... add remaining 10 zero-shot descriptions
+}
+
+
+# ── 5. Experiment Config ───────────────────────────────────────────────────────
+TEMPERATURES   = [0.0, 0.3, 0.7, 1.0]
+N_ITERATIONS   = 3
+MAX_NEW_TOKENS = 2048
+
+
+# ── 6. Token Count Check (run before the main loop to catch context issues) ────
+print("── Token count check ─────────────────────────────────────────────────")
+sample_few_shot  = build_few_shot_prompt(list(
+    v for v in descriptions.values() if v["prompting_strategy"] == "few_shot"
+)[0]["text"])
+sample_zero_shot = build_zero_shot_prompt(list(
+    v for v in descriptions.values() if v["prompting_strategy"] == "zero_shot"
+)[0]["text"])
+
+few_shot_tokens  = len(tokenizer.encode(sample_few_shot))
+zero_shot_tokens = len(tokenizer.encode(sample_zero_shot))
+
+print(f"  Few-shot  prompt tokens : {few_shot_tokens}  / 8000")
+print(f"  Zero-shot prompt tokens : {zero_shot_tokens} / 8000")
+
+if few_shot_tokens > 6000:
+    print("  ⚠️  Few-shot prompt is very long — consider trimming example XMLs")
+else:
+    print("  ✅ Token counts look fine")
+print()
+
+
+# ── 7. Run Experiments ─────────────────────────────────────────────────────────
+results = []
+
+for desc_id, desc_info in descriptions.items():
+    strategy = desc_info["prompting_strategy"]
+
+    # Pick the right prompt builder
+    if strategy == "few_shot":
+        prompt = build_few_shot_prompt(desc_info["text"])
+    else:
+        prompt = build_zero_shot_prompt(desc_info["text"])
+
+    for temp in TEMPERATURES:
+        for iteration in range(1, N_ITERATIONS + 1):
+
+            # temp=0 is deterministic — one run is enough
+            if temp == 0.0 and iteration > 1:
+                continue
+
+            print(f"▶ [{strategy}] {desc_id} | temp={temp} | iter={iteration}")
+
+            output = pipe(
+                prompt,
+                max_new_tokens=MAX_NEW_TOKENS,
+                do_sample=(temp > 0.0),
+                temperature=temp if temp > 0.0 else None,
+            )
+
+            response = output[0]["generated_text"][len(prompt):].strip()
+
+            results.append({
+                "description_id":      desc_id,
+                "prompting_strategy":  strategy,
+                "gt_source":           desc_info["gt_source"],
+                "temperature":         temp,
+                "iteration":           iteration,
+                "response":            response,
+            })
+
+            # Checkpoint every 10 results
+            if len(results) % 10 == 0:
+                pd.DataFrame(results).to_csv(
+                    "experiments/csv/checkpoint.csv", index=False
+                )
+                print("  📌 Checkpoint saved")
+
+# ── 8. Save Final CSV ──────────────────────────────────────────────────────────
+df = pd.DataFrame(results)
+df.to_csv("experiments/csv/experiment_results.csv", index=False)
+
+print(f"\n✅ Done! {len(df)} outputs saved to experiments/csv/experiment_results.csv")
+print(df[["description_id", "prompting_strategy", "temperature", "iteration"]].to_string())
