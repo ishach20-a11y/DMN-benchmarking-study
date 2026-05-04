@@ -1,0 +1,157 @@
+!pip install -q mistralai pandas
+
+import os
+
+from mistralai.client import Mistral
+# ── install package ────────────────────────────
+from google.colab import files
+import pandas as pd
+import os
+import re
+
+os.makedirs("examples", exist_ok=True)
+os.makedirs("experiments/dmn", exist_ok=True)
+# ── 1. Upload example DMN files ────────────────────────────
+# Upload exactly 2 files:
+# example_1.dmn
+# example_2.dmn
+
+uploaded = files.upload()
+
+for file_name in uploaded.keys():
+    os.rename(file_name, f"examples/{file_name}")
+
+print("Uploaded files:", os.listdir("examples"))
+
+# ── 2. Load and validate example files ─────────────────────
+def load_example(file_path: str) -> str:
+    if not os.path.exists(file_path):
+        raise FileNotFoundError(
+            f"Missing file: {file_path}\n"
+            "Make sure you uploaded all required files."
+        )
+
+    with open(file_path, "r", encoding="utf-8") as f:
+        return f.read()
+
+example_1_xml = load_example("examples/example_1.dmn")
+example_2_xml = load_example("examples/example_2.dmn")
+
+# ── 3. Insert textual descriptions manually ────────────────
+example_1_text = """An institution decides to distribute scholarships but can obviously not give them to everyone. Therefore, they decide to distribute them based on the grades, annual income and whether that person already received any scholarships for the year they are applying to. In short a person can only be eligible for a scholarship if the grades are excellent or good, they earn less than 50000 a year and have not received any other scholarship yet. All the other cases make that the person is not eligible for that scholarship."""
+
+example_2_text = """Consider a patient health monitoring system for a person diagnosed with the Chronic Obstructive Pulmonary Disease (COPD). This case was presented in [17]. COPD is a disease that obstructs the lungs and the airflow and breathing of the patient. Acute attacks of the disease can happen. In that case the patient can experience uncomfortable complications such as fast breathing, a fast heart rate, hyperactive use of muscles, and a cold skin. It has been recognised that an IoT-based patient monitoring process can help increasing the life quality of the patient and decrease the risks that are inherent to the disease and multiple sensors and wearable technologies exist that can collect patient data relevant for the patient monitoring process [17]:– Electrocardiogram (ECG) sensors monitor the heart.– Respiratory sensors check the breathing rate.– Skin temperature sensors monitor the skin temperature.– Muscular Electromyography (EMG) sensors monitor the muscle activity. All these sensors collect measurements on the patient’s health.
+Note that this case displays a high need for context aggregation, as a single sensor or even a few sensors combined are not enough to capture the COPD. For instance, the patient might take a walk outside in the winter and a sensor registers a low skin temperature. In that case, the patient is not necessarily suffering from COPD at that moment. However, an expert can build a patient-specific decision rules to capture COPD in such a monitoring system. For instance, if the sensors register a low skin temperature, a short and fast breathing rate, together with a high heart rhythm, the monitoring process might decide that the patient is suffering an attack and running out of oxygen. In such a situation the process can trigger the administration of an oxygen mask to the patient. Less severe attacks can be remedied by using an inhaler."""
+
+# ── 4. API key and model ───────────────────────────────────
+#Name the API Key in the
+API_KEY = userdata.get("MISTRAL_API_KEY")
+
+client = Mistral(api_key=API_KEY)
+
+MODEL_NAME = "magistral-small-2509"
+
+# ── 5. Configuration ───────────────────────────────────────
+# Change this manually for each temperature run: 0.2 / 0.4 / 0.6
+TEMPERATURE = 0.2
+
+N_ITERATIONS = 3
+MAX_TOKENS = 16000
+TOP_P = 1.0
+FREQUENCY_PENALTY = 0.0
+PRESENCE_PENALTY = 0.6
+
+# ── 6. New description for generation ──────────────────────
+#Change the ID of the description based
+description_id = "description_1"
+
+description = """PASTE NEW DESCRIPTION HERE"""
+
+# ── 7. Prompt builder ──────────────────────────────────────
+def build_few_shot_prompt(description: str) -> str:
+    return f"""<s>[INST] You are an expert in DMN diagram generation.
+
+Examine the following 2 examples of DMN models including their input textual \
+descriptions and the corresponding DMN XML files of the Decision Requirements \
+Diagrams (DRDs). You will need them for future output generation.
+
+The DMN XML files are named "DMN 1" and "DMN 2". The matching textual \
+descriptions according to their numbering are the following:
+
+Example 1 Input: {example_1_text}
+DMN 1:
+{example_1_xml}
+
+Example 2 Input: {example_2_text}
+DMN 2:
+{example_2_xml}
+
+Generate a complete Camunda-compatible DMN XML file for the new DMN textual description provided below.
+
+Important requirements:
+- Return only complete DMN XML.
+- Do not repeat the input description.
+- Do not include explanations, headings, labels, or Markdown.
+- The output must start with <?xml version="1.0" encoding="UTF-8"?>
+- The output must include <definitions>.
+- The output must include valid DMN namespace declarations.
+- The output must include decisions, inputData elements, informationRequirement elements, and DMNDI diagram elements.
+- The file must be importable and readable in Camunda Modeler.
+- Do not produce a simplified XML fragment.
+- Do not stop before closing </definitions>.
+
+Text: '{description}' [/INST]</s>"""
+
+# ── 8. Clean model output ──────────────────────────────────
+def clean_model_output(text: str) -> str:
+    text = text.strip()
+    text = re.sub(r"^```xml\s*", "", text)
+    text = re.sub(r"^```\s*", "", text)
+    text = re.sub(r"\s*```$", "", text)
+
+    xml_start = text.find("<?xml")
+    if xml_start == -1:
+        xml_start = text.find("<definitions")
+
+    if xml_start != -1:
+        text = text[xml_start:]
+
+    xml_end = text.rfind("</definitions>")
+    if xml_end != -1:
+        text = text[:xml_end + len("</definitions>")]
+
+    return text.strip()
+
+# ── 9. Run generation ──────────────────────────────────────
+prompt = build_few_shot_prompt(description)
+
+for iteration in range(1, N_ITERATIONS + 1):
+    print(f"▶ Mistral | {description_id} | temp={TEMPERATURE} | iter={iteration}")
+
+    response = client.chat.complete(
+        model=MODEL_NAME,
+        messages=[
+            {"role": "user", "content": prompt}
+        ],
+        temperature=TEMPERATURE,
+        max_tokens=MAX_TOKENS,
+        top_p=TOP_P,
+        frequency_penalty=FREQUENCY_PENALTY,
+        presence_penalty=PRESENCE_PENALTY,
+    )
+
+    dmn_xml = clean_model_output(response.choices[0].message.content)
+
+    base_name = f"{description_id}_mistral_temp_{TEMPERATURE}_iter_{iteration}"
+    dmn_path = f"experiments/dmn/{base_name}.dmn"
+
+    # Save DMN file
+    with open(dmn_path, "w", encoding="utf-8") as f:
+        f.write(dmn_xml)
+
+    print(f"Saved: {dmn_path}")
+
+# ── 10. Download DMN results ───────────────────────────────
+for iteration in range(1, N_ITERATIONS + 1):
+    base_name = f"{description_id}_mistral_temp_{TEMPERATURE}_iter_{iteration}"
+    files.download(f"experiments/dmn/{base_name}.dmn")
