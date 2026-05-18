@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:modeler="http://camunda.org/schema/modeler/1.0" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" id="Definitions_1tj8q8o" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.44.0" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.8.0">
+  <decision id="Decision_0k8d9ha" name="scholarship eligibility">
+    <informationRequirement id="InformationRequirement_02tey2s">
+      <requiredInput href="#InputData_1dmcb3k" />
+    </informationRequirement>
+    <informationRequirement id="InformationRequirement_0xktwzw">
+      <requiredInput href="#InputData_1na4bo9" />
+    </informationRequirement>
+    <informationRequirement id="InformationRequirement_1q1fcle">
+      <requiredInput href="#InputData_13nws66" />
+    </informationRequirement>
+    <decisionTable id="DecisionTable_0an8mvb">
+      <input id="Input_1" label="grades">
+        <inputExpression id="InputExpression_1" typeRef="string">
+          <text></text>
+        </inputExpression>
+        <inputValues id="UnaryTests_03yf9sq">
+          <text>"excellent","good"</text>
+        </inputValues>
+      </input>
+      <input id="InputClause_0smy6yw" label="annual income">
+        <inputExpression id="LiteralExpression_1kykit3" typeRef="number">
+          <text></text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_0uclk51" label="other scholarship acceptance">
+        <inputExpression id="LiteralExpression_0imklyv" typeRef="boolean">
+          <text></text>
+        </inputExpression>
+      </input>
+      <output id="Output_1" label="scholarship elibility" typeRef="string">
+        <outputValues id="UnaryTests_00txvat">
+          <text>"eligible","not eligible"</text>
+        </outputValues>
+      </output>
+      <rule id="DecisionRule_1tplen2">
+        <inputEntry id="UnaryTests_1kn8mxs">
+          <text>"excellent"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1jpwj5z">
+          <text>&lt; 50000</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_178c3v4">
+          <text>false</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_02ny4uf">
+          <text>"eligible"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_15a2k43">
+        <inputEntry id="UnaryTests_0l4kouw">
+          <text>"good"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_03sc990">
+          <text>&lt; 50000</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1ro84gu">
+          <text>false</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1jvkzf1">
+          <text>"eligible"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1301dx0">
+        <inputEntry id="UnaryTests_0y5oyto">
+          <text>"excellent"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1giqzc8">
+          <text>&lt; 50000</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_19r5s9q">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_03flw5d">
+          <text>"not eligible"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_005njlz">
+        <inputEntry id="UnaryTests_1vuxuyf">
+          <text>"good"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1sgylud">
+          <text>&lt; 50000</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0lmq6y7">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1xt63ao">
+          <text>"not eligible"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0cpzqn7">
+        <inputEntry id="UnaryTests_0nwc9s5">
+          <text>"excellent"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_07t9xjx">
+          <text>&gt;= 50000</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1sucbn5">
+          <text>false</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_02gbyun">
+          <text>"not eligible"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0hytyy8">
+        <inputEntry id="UnaryTests_1e05buo">
+          <text>"good"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1n0ozw2">
+          <text>&gt;= 50000</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0vt3d7y">
+          <text>false</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0j0kdpy">
+          <text>"not eligible"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0s4uf5l">
+        <inputEntry id="UnaryTests_133i5gf">
+          <text>"excellent"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1s5xeji">
+          <text>&gt;= 50000</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0kiwauc">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1hps4a7">
+          <text>"not eligible"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_10x5xjb">
+        <inputEntry id="UnaryTests_1wrq37z">
+          <text>"good"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_150wefr">
+          <text>&gt;= 50000</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0sma7ly">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1vj6fym">
+          <text>"not eligible"</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <inputData id="InputData_1dmcb3k" name="grades" />
+  <inputData id="InputData_1na4bo9" name="annual income" />
+  <inputData id="InputData_13nws66" name="other scholarship acceptance" />
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram>
+      <dmndi:DMNShape id="Decision_0k8d9ha_di" dmnElementRef="Decision_0k8d9ha">
+        <dc:Bounds height="80" width="180" x="160" y="100" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="DMNShape_07pjm9t" dmnElementRef="InputData_1dmcb3k">
+        <dc:Bounds height="45" width="125" x="47" y="227" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="DMNEdge_04q2mmm" dmnElementRef="InformationRequirement_02tey2s">
+        <di:waypoint x="110" y="227" />
+        <di:waypoint x="205" y="200" />
+        <di:waypoint x="205" y="180" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNShape id="DMNShape_03kuen7" dmnElementRef="InputData_1na4bo9">
+        <dc:Bounds height="45" width="125" x="187" y="227" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="DMNEdge_0wdp42x" dmnElementRef="InformationRequirement_0xktwzw">
+        <di:waypoint x="250" y="227" />
+        <di:waypoint x="250" y="200" />
+        <di:waypoint x="250" y="180" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNShape id="DMNShape_0hjvye7" dmnElementRef="InputData_13nws66">
+        <dc:Bounds height="45" width="125" x="327" y="227" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="DMNEdge_171jlp5" dmnElementRef="InformationRequirement_1q1fcle">
+        <di:waypoint x="390" y="227" />
+        <di:waypoint x="295" y="200" />
+        <di:waypoint x="295" y="180" />
+      </dmndi:DMNEdge>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>

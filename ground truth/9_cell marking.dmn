@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:modeler="http://camunda.org/schema/modeler/1.0" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" id="Definitions_1dauktj" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.44.0" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.8.0">
+  <decision id="Decision_062zg5e" name="Cell marking">
+    <informationRequirement id="InformationRequirement_0nhro8o">
+      <requiredInput href="#InputData_06ns0mr" />
+    </informationRequirement>
+    <informationRequirement id="InformationRequirement_0c8p4tv">
+      <requiredInput href="#InputData_081rx4c" />
+    </informationRequirement>
+    <informationRequirement id="InformationRequirement_0gg0fi2">
+      <requiredInput href="#InputData_02qfxt6" />
+    </informationRequirement>
+    <informationRequirement id="InformationRequirement_1auzh8k">
+      <requiredInput href="#InputData_0day2cj" />
+    </informationRequirement>
+    <decisionTable id="DecisionTable_1sljie1">
+      <input id="Input_1" label="infra-red reading" biodi:width="150">
+        <inputExpression id="InputExpression_1" typeRef="number">
+          <text></text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_1owxodd" label="ultra-violet reading" biodi:width="150">
+        <inputExpression id="LiteralExpression_1304w89" typeRef="number">
+          <text></text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_0txiq5g" label="gamma reading" biodi:width="150">
+        <inputExpression id="LiteralExpression_0eip6hy" typeRef="number">
+          <text></text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_09cornf" label="x-ray reading" biodi:width="150">
+        <inputExpression id="LiteralExpression_0g7pjd3" typeRef="number">
+          <text></text>
+        </inputExpression>
+      </input>
+      <output id="Output_1" label="cell marking" typeRef="string" biodi:width="150">
+        <outputValues id="UnaryTests_0rvlazr">
+          <text>"infra-red contaminated","ultra-violet contaminated","gamma contaminated","x-ray contaminated"</text>
+        </outputValues>
+      </output>
+      <rule id="DecisionRule_1kdfq33">
+        <inputEntry id="UnaryTests_01a7d31">
+          <text>[50..100]</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_082enmf">
+          <text>[20..60]</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0p1oepi">
+          <text>[70..120]</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0eklpl5">
+          <text>[30..90]</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1vjwqcd">
+          <text>"clear"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0r3umdw">
+        <inputEntry id="UnaryTests_1y2rbvn">
+          <text>not([50..100])</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0zzv88z">
+          <text>[20..60]</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0s30emz">
+          <text>[70..120]</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0w6fo7w">
+          <text>[30..90]</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1herq3q">
+          <text>"Infra-red contaminated"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_01jechp">
+        <inputEntry id="UnaryTests_1hphjyh">
+          <text>[50..100]</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0cqmrze">
+          <text>not([20..60])</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0gjem0h">
+          <text>[70..120]</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0mxud9u">
+          <text>[30..90]</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1pexbqp">
+          <text>"ultra-violet contaminated"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_07pfp6b">
+        <inputEntry id="UnaryTests_105b03g">
+          <text>[50..100]</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0ahcgbu">
+          <text>[20..60]</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_08ykb9x">
+          <text>not([70..120])</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_08mfw9h">
+          <text>[30..90]</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0d4wgs0">
+          <text>"gamma contaminated"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0pt2fxx">
+        <inputEntry id="UnaryTests_0g6w4u6">
+          <text>[50..100]</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1di5nua">
+          <text>[20..60]</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1f6hq4v">
+          <text>[70..120]</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_168xyb3">
+          <text>not([30.90])</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1topfxv">
+          <text>"x-ray contaminated"</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <inputData id="InputData_06ns0mr" name="Infra-red reading" />
+  <inputData id="InputData_081rx4c" name="Ultra-violet reading" />
+  <inputData id="InputData_02qfxt6" name="Gamma reading" />
+  <inputData id="InputData_0day2cj" name="x-ray reading" />
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram>
+      <dmndi:DMNShape id="Decision_062zg5e_di" dmnElementRef="Decision_062zg5e">
+        <dc:Bounds height="80" width="180" x="330" y="150" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="DMNShape_05f13jn" dmnElementRef="InputData_06ns0mr">
+        <dc:Bounds height="45" width="125" x="87" y="297" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="DMNEdge_07022nh" dmnElementRef="InformationRequirement_0nhro8o">
+        <di:waypoint x="150" y="297" />
+        <di:waypoint x="366" y="250" />
+        <di:waypoint x="366" y="230" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNShape id="DMNShape_0fe1z62" dmnElementRef="InputData_081rx4c">
+        <dc:Bounds height="45" width="125" x="257" y="297" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="DMNEdge_0w520lr" dmnElementRef="InformationRequirement_0c8p4tv">
+        <di:waypoint x="320" y="297" />
+        <di:waypoint x="402" y="250" />
+        <di:waypoint x="402" y="230" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNShape id="DMNShape_1xx7h6z" dmnElementRef="InputData_02qfxt6">
+        <dc:Bounds height="45" width="125" x="417" y="297" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="DMNEdge_0hyj1zj" dmnElementRef="InformationRequirement_0gg0fi2">
+        <di:waypoint x="480" y="297" />
+        <di:waypoint x="438" y="250" />
+        <di:waypoint x="438" y="230" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNShape id="DMNShape_1ecwklx" dmnElementRef="InputData_0day2cj">
+        <dc:Bounds height="45" width="125" x="597" y="297" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="DMNEdge_09q6zzt" dmnElementRef="InformationRequirement_1auzh8k">
+        <di:waypoint x="660" y="297" />
+        <di:waypoint x="474" y="250" />
+        <di:waypoint x="474" y="230" />
+      </dmndi:DMNEdge>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>

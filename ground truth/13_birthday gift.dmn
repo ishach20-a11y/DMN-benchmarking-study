@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:modeler="http://camunda.org/schema/modeler/1.0" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" id="Definitions_04dypw7" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.44.0" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.8.0">
+  <decision id="Decision_0i1uth9" name="budget">
+    <informationRequirement id="InformationRequirement_0qcul0q">
+      <requiredDecision href="#Decision_1jwhp52" />
+    </informationRequirement>
+    <decisionTable id="DecisionTable_006hc0u">
+      <input id="Input_1" label="store selection">
+        <inputExpression id="InputExpression_1" typeRef="string">
+          <text></text>
+        </inputExpression>
+        <inputValues id="UnaryTests_05h7r0t">
+          <text>"specialized tennis store","high end luxury store","mall"</text>
+        </inputValues>
+      </input>
+      <output id="Output_1" label="budget" typeRef="number" />
+      <rule id="DecisionRule_1987x7i">
+        <inputEntry id="UnaryTests_02uos7w">
+          <text>"specialized tennis store"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_17k26xs">
+          <text>120</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1m137hq">
+        <inputEntry id="UnaryTests_0w0zslz">
+          <text>"high end luxury store"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0837bi6">
+          <text>120</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1l0uc6b">
+        <inputEntry id="UnaryTests_08290tw">
+          <text>"mall"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1fhncny">
+          <text>150</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <inputData id="InputData_140p6il" name="gift category" />
+  <inputData id="InputData_18cck0n" name="taste" />
+  <decision id="Decision_1jwhp52" name="store selection">
+    <informationRequirement id="InformationRequirement_0of2f7j">
+      <requiredInput href="#InputData_140p6il" />
+    </informationRequirement>
+    <informationRequirement id="InformationRequirement_17hhwfg">
+      <requiredInput href="#InputData_18cck0n" />
+    </informationRequirement>
+    <decisionTable id="DecisionTable_0mwaseb">
+      <input id="InputClause_0abanas" label="gift category">
+        <inputExpression id="LiteralExpression_1yza4ct" typeRef="string" />
+        <inputValues id="UnaryTests_1h9seli">
+          <text>"tennis","fashion"</text>
+        </inputValues>
+      </input>
+      <input id="InputClause_0d5336o" label="up to her taste?">
+        <inputExpression id="LiteralExpression_007je5d" typeRef="boolean">
+          <text></text>
+        </inputExpression>
+      </input>
+      <output id="OutputClause_0eklowc" label="store selection" typeRef="string">
+        <outputValues id="UnaryTests_1p9o461">
+          <text>"specialized tennis store","high end luxury store","mall"</text>
+        </outputValues>
+      </output>
+      <rule id="DecisionRule_1mb939l">
+        <inputEntry id="UnaryTests_03ckkrr">
+          <text>"tennis"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0xjzl5i">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0dd4qo6">
+          <text>"specialized tennis store"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1lcnejf">
+        <inputEntry id="UnaryTests_1pb0udq">
+          <text>"fashion"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0vg9ywe">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_12fc4d8">
+          <text>"high end luxury store"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1k5w22l">
+        <inputEntry id="UnaryTests_0qkd2xm">
+          <text>"tennis"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_14i3ysg">
+          <text>false</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1yz1e7j">
+          <text>"mall"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1gc3g4v">
+        <inputEntry id="UnaryTests_17nkikk">
+          <text>"fashion"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_17if56m">
+          <text>false</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0512h0b">
+          <text>"mall"</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram>
+      <dmndi:DMNShape id="Decision_0i1uth9_di" dmnElementRef="Decision_0i1uth9">
+        <dc:Bounds height="80" width="180" x="400" y="180" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="DMNEdge_12z1wcc" dmnElementRef="InformationRequirement_0qcul0q">
+        <di:waypoint x="490" y="310" />
+        <di:waypoint x="490" y="280" />
+        <di:waypoint x="490" y="260" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNShape id="DMNShape_1cty55j" dmnElementRef="InputData_140p6il">
+        <dc:Bounds height="45" width="125" x="297" y="437" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="DMNEdge_1pm2sok" dmnElementRef="InformationRequirement_0of2f7j">
+        <di:waypoint x="360" y="437" />
+        <di:waypoint x="460" y="410" />
+        <di:waypoint x="460" y="390" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNShape id="DMNShape_1ngbmqu" dmnElementRef="InputData_18cck0n">
+        <dc:Bounds height="45" width="125" x="527" y="437" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="DMNEdge_09wcdax" dmnElementRef="InformationRequirement_17hhwfg">
+        <di:waypoint x="590" y="437" />
+        <di:waypoint x="520" y="410" />
+        <di:waypoint x="520" y="390" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNShape id="DMNShape_1032nbs" dmnElementRef="Decision_1jwhp52">
+        <dc:Bounds height="80" width="180" x="400" y="310" />
+      </dmndi:DMNShape>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>

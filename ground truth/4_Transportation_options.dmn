@@ -1,0 +1,521 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:modeler="http://camunda.org/schema/modeler/1.0" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" id="Definitions_1um6gjy" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.44.0" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.8.0">
+  <decision id="Decision_18z32g4" name="Transportation choice">
+    <informationRequirement id="InformationRequirement_0hys53z">
+      <requiredInput href="#InputData_0i01ydj" />
+    </informationRequirement>
+    <informationRequirement id="InformationRequirement_1c412am">
+      <requiredInput href="#InputData_18v9h66" />
+    </informationRequirement>
+    <informationRequirement id="InformationRequirement_1ojjwib">
+      <requiredInput href="#InputData_1n2hpp3" />
+    </informationRequirement>
+    <decisionTable id="DecisionTable_0dy3k8r">
+      <input id="Input_1" label="Distance">
+        <inputExpression id="InputExpression_1" typeRef="number">
+          <text></text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_08jzmxe" label="Weather">
+        <inputExpression id="LiteralExpression_05vxbb6" typeRef="string">
+          <text></text>
+        </inputExpression>
+        <inputValues id="UnaryTests_0sgbv1l">
+          <text>"sunny","cloudy","raining","freezing"</text>
+        </inputValues>
+      </input>
+      <input id="InputClause_1wloxw1" label="Hurry">
+        <inputExpression id="LiteralExpression_1mztzge" typeRef="boolean">
+          <text></text>
+        </inputExpression>
+      </input>
+      <output id="Output_1" label="Transportation choice" typeRef="string" biodi:width="192">
+        <outputValues id="UnaryTests_11pc1hd">
+          <text>"walk","bike","car"</text>
+        </outputValues>
+      </output>
+      <rule id="DecisionRule_1kd2476">
+        <inputEntry id="UnaryTests_1uwh031">
+          <text>&gt;=10</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1s7ig8d">
+          <text>"sunny"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1ct1oxf">
+          <text>false</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1c3fwol">
+          <text>"bike"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0551fi8">
+        <inputEntry id="UnaryTests_0p9ocik">
+          <text>&gt;=10</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0awmk9x">
+          <text>"cloudy"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_01nzqmd">
+          <text>false</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_17wlr2c">
+          <text>"bike"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0bsm9ym">
+        <inputEntry id="UnaryTests_0fake7c">
+          <text>&gt;=10</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0qc788r">
+          <text>"raining"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1ipolsp">
+          <text>false</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_17ttcol">
+          <text>"car"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_186ubgm">
+        <inputEntry id="UnaryTests_0lbguuu">
+          <text>&gt;=10</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0d35mxr">
+          <text>"freezing"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_00xxrhn">
+          <text>false</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0gxjivu">
+          <text>"car"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_16liowt">
+        <inputEntry id="UnaryTests_1x88n1d">
+          <text>&gt;=10</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1gw6j86">
+          <text>"raining"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0854hvz">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_020sbvh">
+          <text>"car"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0c897sq">
+        <inputEntry id="UnaryTests_0h6lqsn">
+          <text>&gt;=10</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1f2k9h3">
+          <text>"freezing"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0fvkcrr">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1i0q9ut">
+          <text>"car"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_089kyjv">
+        <inputEntry id="UnaryTests_1mpcxpf">
+          <text>&gt;10</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1ct8798">
+          <text>"sunny"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0lrruo4">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0iofpl4">
+          <text>"car"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1bgld1y">
+        <inputEntry id="UnaryTests_1q95wst">
+          <text>&gt;10</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0qghsy8">
+          <text>"cloudy"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0aoi4vz">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1bm2263">
+          <text>"car"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1mvvu4l">
+        <inputEntry id="UnaryTests_0y22l5b">
+          <text>&gt;10</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0qy0yf7">
+          <text>"raining"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0b2go79">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0mdchs7">
+          <text>"car"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_15o50jq">
+        <inputEntry id="UnaryTests_1r2amp3">
+          <text>&gt;10</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1bzj702">
+          <text>"freezing"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0cktnt7">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0ag5cba">
+          <text>"car"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0chlpfq">
+        <inputEntry id="UnaryTests_1cfqh4n">
+          <text>[5..10]</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0d06rn3">
+          <text>"raining"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1hf85ah">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1lxjkdr">
+          <text>"car"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_02w5jry">
+        <inputEntry id="UnaryTests_07my79i">
+          <text>[5..10]</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_06mfhvq">
+          <text>"raining"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_06hnlbn">
+          <text>false</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_17pq7vt">
+          <text>"car"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1fqh2sj">
+        <inputEntry id="UnaryTests_0x0cakv">
+          <text>[5..10]</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1hev9ca">
+          <text>"freezing"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_17x6kqg">
+          <text>false</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0dt2jco">
+          <text>"car"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0xj1wb0">
+        <inputEntry id="UnaryTests_0y5etxe">
+          <text>[5..10]</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0g8y6lt">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_01avgf4">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1aslbrt">
+          <text>"car"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0e55vrp">
+        <inputEntry id="UnaryTests_0jva6k4">
+          <text>[5..10]</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0omfdsz">
+          <text>"sunny"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_02gxkgu">
+          <text>false</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_04h27z1">
+          <text>"bike"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0m3zj1a">
+        <inputEntry id="UnaryTests_1pb80uv">
+          <text>[5..10]</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_06lz58y">
+          <text>"cloudy"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_048gjxc">
+          <text>false</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1fwlo0a">
+          <text>"bike"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0u6n2fz">
+        <inputEntry id="UnaryTests_1555doh">
+          <text>[2..5]</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0o7e1zb">
+          <text>"raining"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0hfpsq1">
+          <text>false</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1prt4cd">
+          <text>"car"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1hsoolr">
+        <inputEntry id="UnaryTests_1sg730l">
+          <text>[2..5]</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1riq39b">
+          <text>"sunny"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0xqapdc">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0yubtxc">
+          <text>"car"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0sb5wqt">
+        <inputEntry id="UnaryTests_05ahjws">
+          <text>[2..5]</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1sqdxc9">
+          <text>"cloudy"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_024vxkh">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_00kd1t7">
+          <text>"car"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1mqgto5">
+        <inputEntry id="UnaryTests_1206e8a">
+          <text>[2..5]</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1kafcjo">
+          <text>"freezing"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_08eh3x3">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_018wi5e">
+          <text>"car"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0jhorhg">
+        <inputEntry id="UnaryTests_10nmdt4">
+          <text>[2..5]</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_16xuzm8">
+          <text>"raining"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0rm5x54">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_04bs58t">
+          <text>"car"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1p14v0b">
+        <inputEntry id="UnaryTests_1nsonoa">
+          <text>[2..5]</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0jpmcx9">
+          <text>"sunny"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1oxqdlh">
+          <text>false</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_07tttvu">
+          <text>"bike"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1o0rdtr">
+        <inputEntry id="UnaryTests_0mcfbw2">
+          <text>[2..5]</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0n1ecy7">
+          <text>"cloudy"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1dg1usr">
+          <text>false</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_04by2jm">
+          <text>"bike"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_16fmwni">
+        <inputEntry id="UnaryTests_04zkf0a">
+          <text>[2..5]</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_056ctdj">
+          <text>"freezing"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0pv21ou">
+          <text>false</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0q5d3kt">
+          <text>"bike"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_04xm1t9">
+        <inputEntry id="UnaryTests_1g239jc">
+          <text>&lt;2</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1kk5t2m">
+          <text>"sunny"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0s3gdx2">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0wx91qm">
+          <text>"bike"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1cw86br">
+        <inputEntry id="UnaryTests_08pu7pb">
+          <text>&lt;2</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1g8rijb">
+          <text>"cloudy"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0t9mrch">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1fdo3j7">
+          <text>"bike"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_15g4gjk">
+        <inputEntry id="UnaryTests_02ouhge">
+          <text>&lt;2</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_182w1cg">
+          <text>"raining"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1cwkbxp">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1eoibkp">
+          <text>"bike"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1b799nq">
+        <inputEntry id="UnaryTests_0w6hsay">
+          <text>&lt;2</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0gfd59m">
+          <text>"freezing"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_011ocji">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0a3d7v2">
+          <text>"bike"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_026i1h1">
+        <inputEntry id="UnaryTests_1479w4x">
+          <text>&lt;2</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_06yce96">
+          <text>"sunny"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0ed4vsn">
+          <text>false</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1v1pk2g">
+          <text>"walk"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1yhn48r">
+        <inputEntry id="UnaryTests_03t829u">
+          <text>&lt;2</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_13qw25a">
+          <text>"cloudy"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0tv5iv9">
+          <text>false</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0s9drxm">
+          <text>"walk"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_16hawf6">
+        <inputEntry id="UnaryTests_12mo8xv">
+          <text>&lt;2</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0w7nt0c">
+          <text>"raining"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0s3jzg5">
+          <text>false</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_02wzy5a">
+          <text>"walk"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1b92pat">
+        <inputEntry id="UnaryTests_16x1gnt">
+          <text>&lt;2</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1o5w0ff">
+          <text>"freezing"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1dhc1eb">
+          <text>false</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1wjauuv">
+          <text>"walk"</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <inputData id="InputData_0i01ydj" name="Distance" />
+  <inputData id="InputData_18v9h66" name="Weather" />
+  <inputData id="InputData_1n2hpp3" name="Hurry" />
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram>
+      <dmndi:DMNShape id="Decision_18z32g4_di" dmnElementRef="Decision_18z32g4">
+        <dc:Bounds height="80" width="180" x="320" y="100" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="DMNShape_1d0bvh8" dmnElementRef="InputData_0i01ydj">
+        <dc:Bounds height="45" width="125" x="197" y="279" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="DMNShape_1sefugk" dmnElementRef="InputData_18v9h66">
+        <dc:Bounds height="45" width="125" x="347" y="278" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="DMNShape_1fn05au" dmnElementRef="InputData_1n2hpp3">
+        <dc:Bounds height="45" width="125" x="488" y="279" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="DMNEdge_18xoz52" dmnElementRef="InformationRequirement_0hys53z">
+        <di:waypoint x="260" y="279" />
+        <di:waypoint x="365" y="200" />
+        <di:waypoint x="365" y="180" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNEdge id="DMNEdge_19m18dr" dmnElementRef="InformationRequirement_1c412am">
+        <di:waypoint x="410" y="278" />
+        <di:waypoint x="410" y="200" />
+        <di:waypoint x="410" y="180" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNEdge id="DMNEdge_1ygncqm" dmnElementRef="InformationRequirement_1ojjwib">
+        <di:waypoint x="551" y="279" />
+        <di:waypoint x="455" y="200" />
+        <di:waypoint x="455" y="180" />
+      </dmndi:DMNEdge>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>

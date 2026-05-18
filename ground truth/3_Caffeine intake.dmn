@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:modeler="http://camunda.org/schema/modeler/1.0" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" id="Definitions_00ghp5h" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.44.0" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.8.0">
+  <decision id="Decision_1xghimv" name="Urgency">
+    <informationRequirement id="InformationRequirement_0xlfvej">
+      <requiredInput href="#InputData_0i96d3a" />
+    </informationRequirement>
+    <informationRequirement id="InformationRequirement_0ns10z0">
+      <requiredInput href="#InputData_1l681b7" />
+    </informationRequirement>
+    <decisionTable id="DecisionTable_0b1u3d6">
+      <input id="Input_1" label="Sleepiness Level">
+        <inputExpression id="InputExpression_1" typeRef="string">
+          <text></text>
+        </inputExpression>
+        <inputValues id="UnaryTests_0ub1e3c">
+          <text>"low","medium","high"</text>
+        </inputValues>
+      </input>
+      <input id="InputClause_1iwfr0e" label="Work">
+        <inputExpression id="LiteralExpression_05keodi" typeRef="string">
+          <text></text>
+        </inputExpression>
+        <inputValues id="UnaryTests_15lm4lm">
+          <text>"No work","Work Awaiting"</text>
+        </inputValues>
+      </input>
+      <output id="Output_1" label="Urgency" typeRef="string">
+        <outputValues id="UnaryTests_01e1dou">
+          <text>"Urgent","Non-Urgent"</text>
+        </outputValues>
+      </output>
+      <rule id="DecisionRule_14bb76x">
+        <inputEntry id="UnaryTests_1tjsinc">
+          <text>"low","medium"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0cnj2jl">
+          <text>"No work"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0b6xelq">
+          <text>"Non-Urgent"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0ugktvq">
+        <inputEntry id="UnaryTests_0dg0ike">
+          <text>"high"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1o3r5pf">
+          <text>"No work"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1ibj8fa">
+          <text>"Urgent"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0ns9e6q">
+        <inputEntry id="UnaryTests_0u43x5s">
+          <text>-</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1ey9hyc">
+          <text>"Work Awaiting"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1fmlao4">
+          <text>"Urgent"</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <inputData id="InputData_0i96d3a" name="Sleepiness level" />
+  <inputData id="InputData_1l681b7" name="Work" />
+  <inputData id="InputData_0v0uumh" name="Time" />
+  <decision id="Decision_0fq64p0" name="Action">
+    <informationRequirement id="InformationRequirement_0c0wqit">
+      <requiredInput href="#InputData_0v0uumh" />
+    </informationRequirement>
+    <informationRequirement id="InformationRequirement_1yvar6u">
+      <requiredInput href="#InputData_1p9fzyb" />
+    </informationRequirement>
+    <informationRequirement id="InformationRequirement_04awci6">
+      <requiredDecision href="#Decision_1xghimv" />
+    </informationRequirement>
+    <decisionTable id="DecisionTable_11pd62v">
+      <input id="InputClause_0t31ckr" label="Urgency">
+        <inputExpression id="LiteralExpression_0ecfw57" typeRef="string" />
+        <inputValues id="UnaryTests_1jnkwa3">
+          <text>"Urgent","Non-Urgent"</text>
+        </inputValues>
+      </input>
+      <input id="InputClause_1q0lq7x" label="Time">
+        <inputExpression id="LiteralExpression_1egi5gq" typeRef="string">
+          <text></text>
+        </inputExpression>
+        <inputValues id="UnaryTests_1ya5q37">
+          <text>"Morning","Afternoon","Evening"</text>
+        </inputValues>
+      </input>
+      <input id="InputClause_0im4a2f" label="Location" biodi:width="192">
+        <inputExpression id="LiteralExpression_1ei6jzo" typeRef="string">
+          <text></text>
+        </inputExpression>
+        <inputValues id="UnaryTests_03w8xg1">
+          <text>"Home","Elsewhere"</text>
+        </inputValues>
+      </input>
+      <output id="OutputClause_1ythr1u" label="Action" typeRef="string">
+        <outputValues id="UnaryTests_1qzq84z">
+          <text>"Coffee","Sleep","Short nap"</text>
+        </outputValues>
+      </output>
+      <rule id="DecisionRule_051r8us">
+        <inputEntry id="UnaryTests_1lzptig">
+          <text>"Urgent"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0syv5z7">
+          <text>"Morning"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_13ov5s0">
+          <text>"Home","Elsewhere"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_11fv10n">
+          <text>"Coffee"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_12j11ju">
+        <inputEntry id="UnaryTests_0posuvf">
+          <text>"Urgent"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1mghga2">
+          <text>"Afternoon","Evening"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_184hryl">
+          <text>"Home","Elsewhere"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1pmozx3">
+          <text>"Short nap"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0om9m5k">
+        <inputEntry id="UnaryTests_1jpo1l8">
+          <text>"Non-Urgent"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1urqmu3">
+          <text>"Morning","Afternoon"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1cfowpa">
+          <text>"Home"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0cwcw97">
+          <text>"Short nap"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1fr6oau">
+        <inputEntry id="UnaryTests_0f2nb1u">
+          <text>"Non-Urgent"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0rzbhyt">
+          <text>"Evening"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_04lagmp">
+          <text>"Home"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0mlth9p">
+          <text>"Sleep"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0oikrby">
+        <inputEntry id="UnaryTests_0k2uwsg">
+          <text>"Non-Urgent"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1r2i0i9">
+          <text>-</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0fcziv2">
+          <text>"Elsewhere"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_133vgnk">
+          <text>"Coffee"</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <inputData id="InputData_1p9fzyb" name="Location" />
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram>
+      <dmndi:DMNShape id="Decision_1xghimv_di" dmnElementRef="Decision_1xghimv">
+        <dc:Bounds height="80" width="180" x="220" y="270" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="DMNShape_0vl58ix" dmnElementRef="InputData_0i96d3a">
+        <dc:Bounds height="45" width="125" x="157" y="427" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="DMNEdge_1dq3aio" dmnElementRef="InformationRequirement_0xlfvej">
+        <di:waypoint x="220" y="427" />
+        <di:waypoint x="280" y="370" />
+        <di:waypoint x="280" y="350" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNShape id="DMNShape_0mochwk" dmnElementRef="InputData_1l681b7">
+        <dc:Bounds height="45" width="125" x="387" y="427" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="DMNEdge_0ayak0k" dmnElementRef="InformationRequirement_0ns10z0">
+        <di:waypoint x="450" y="427" />
+        <di:waypoint x="340" y="370" />
+        <di:waypoint x="340" y="350" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNShape id="DMNShape_13581qu" dmnElementRef="InputData_0v0uumh">
+        <dc:Bounds height="45" width="125" x="347" y="197" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="DMNEdge_0cjm9r0" dmnElementRef="InformationRequirement_0c0wqit">
+        <di:waypoint x="410" y="197" />
+        <di:waypoint x="355" y="180" />
+        <di:waypoint x="355" y="160" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNShape id="DMNShape_03bcalk" dmnElementRef="Decision_0fq64p0">
+        <dc:Bounds height="80" width="180" x="220" y="80" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="DMNShape_0mnr505" dmnElementRef="InputData_1p9fzyb">
+        <dc:Bounds height="45" width="125" x="157" y="197" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="DMNEdge_0oii4id" dmnElementRef="InformationRequirement_1yvar6u">
+        <di:waypoint x="220" y="197" />
+        <di:waypoint x="265" y="180" />
+        <di:waypoint x="265" y="160" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNEdge id="DMNEdge_1l1i3xt" dmnElementRef="InformationRequirement_04awci6">
+        <di:waypoint x="310" y="270" />
+        <di:waypoint x="310" y="180" />
+        <di:waypoint x="310" y="160" />
+      </dmndi:DMNEdge>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>

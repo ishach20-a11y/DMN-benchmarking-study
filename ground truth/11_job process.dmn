@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:modeler="http://camunda.org/schema/modeler/1.0" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" id="Definitions_139s28m" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.44.0" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.8.0">
+  <decision id="Decision_1z11zp6" name="offer letter decision">
+    <informationRequirement id="InformationRequirement_1cotbae">
+      <requiredDecision href="#Decision_16vycj6" />
+    </informationRequirement>
+    <informationRequirement id="InformationRequirement_0aivor2">
+      <requiredDecision href="#Decision_1bw45m2" />
+    </informationRequirement>
+    <informationRequirement id="InformationRequirement_0maw952">
+      <requiredDecision href="#Decision_1nxhgw9" />
+    </informationRequirement>
+    <decisionTable id="DecisionTable_1jw5mbo">
+      <input id="Input_1" label="screening" biodi:width="150">
+        <inputExpression id="InputExpression_1" typeRef="boolean">
+          <text></text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_0zpbnem" label="test" biodi:width="150">
+        <inputExpression id="LiteralExpression_03apb8a" typeRef="boolean">
+          <text></text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_0ar9vqy" label="interview" biodi:width="150">
+        <inputExpression id="LiteralExpression_1sjkl0n" typeRef="boolean">
+          <text></text>
+        </inputExpression>
+      </input>
+      <output id="Output_1" label="offer letter decision" typeRef="string">
+        <outputValues id="UnaryTests_0g7v3t8">
+          <text>"offer letter","rejection letter"</text>
+        </outputValues>
+      </output>
+      <rule id="DecisionRule_0cokhd7">
+        <inputEntry id="UnaryTests_19m2qsz">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0nqo81k">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_13k6py3">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0hzp45b">
+          <text>"offer letter"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0shsdnc">
+        <inputEntry id="UnaryTests_0qbx20x">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0602uhy">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_027qdew">
+          <text>false</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_085cgrr">
+          <text>"rejection letter"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0162uty">
+        <inputEntry id="UnaryTests_1jmwmod">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_12mysfc">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_141i1ew">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0loma58">
+          <text>"rejection letter"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_17sunhz">
+        <inputEntry id="UnaryTests_0g1o6fi">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0yz0pqe">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0w14lah">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1nlnrco">
+          <text>"rejection letter"</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <inputData id="InputData_0uw2unj" name="education" />
+  <inputData id="InputData_0ibhfoj" name="required skills" />
+  <inputData id="InputData_1dprtav" name="soft skills" />
+  <decision id="Decision_16vycj6" name="screening">
+    <informationRequirement id="InformationRequirement_1ctkzph">
+      <requiredInput href="#InputData_0uw2unj" />
+    </informationRequirement>
+    <informationRequirement id="InformationRequirement_0rrxlzo">
+      <requiredInput href="#InputData_0ibhfoj" />
+    </informationRequirement>
+    <decisionTable id="DecisionTable_07kyw46">
+      <input id="InputClause_02jmtpi" label="education">
+        <inputExpression id="LiteralExpression_06zo45s" typeRef="boolean" />
+      </input>
+      <input id="InputClause_19o0uaa" label="required skills">
+        <inputExpression id="LiteralExpression_12gks55" typeRef="boolean">
+          <text></text>
+        </inputExpression>
+      </input>
+      <output id="OutputClause_0hccges" label="next stage" typeRef="string">
+        <outputValues id="UnaryTests_0tov8e0">
+          <text>"next stage","fail"</text>
+        </outputValues>
+      </output>
+      <rule id="DecisionRule_0yqjk6l">
+        <inputEntry id="UnaryTests_090e8xn">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1bkgugy">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0pndrui">
+          <text>"next stage"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_06gj7mh">
+        <inputEntry id="UnaryTests_0cbilo5">
+          <text>true </text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0rl0lgc">
+          <text>false</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1pza4zj">
+          <text>"fail"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_02zhatm">
+        <inputEntry id="UnaryTests_0bz5tiw">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1f626iz">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0boyikv">
+          <text>"fail"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_08bnziu">
+        <inputEntry id="UnaryTests_1j6q0km">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_05rzw1y">
+          <text>false</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1u4g2dh">
+          <text>"fail"</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <decision id="Decision_1bw45m2" name="test">
+    <informationRequirement id="InformationRequirement_0o8luby">
+      <requiredInput href="#InputData_0ibhfoj" />
+    </informationRequirement>
+    <decisionTable id="DecisionTable_042b25s">
+      <input id="InputClause_0kj2ma9" label="required skills">
+        <inputExpression id="LiteralExpression_1dmc9b3" typeRef="boolean" />
+      </input>
+      <output id="OutputClause_1f4dwj5" label="next stage" typeRef="string">
+        <outputValues id="UnaryTests_1pz4hdx">
+          <text>"next stage","fail"</text>
+        </outputValues>
+      </output>
+      <rule id="DecisionRule_152kqzb">
+        <inputEntry id="UnaryTests_1t4buig">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1wj63ge">
+          <text>"next stage"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0i80k92">
+        <inputEntry id="UnaryTests_1h1kswv">
+          <text>false</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1dj8ztz">
+          <text>"fail"</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <decision id="Decision_1nxhgw9" name="interview">
+    <informationRequirement id="InformationRequirement_1jz6zzn">
+      <requiredInput href="#InputData_1dprtav" />
+    </informationRequirement>
+    <informationRequirement id="InformationRequirement_0jr7i9b">
+      <requiredInput href="#InputData_0ibhfoj" />
+    </informationRequirement>
+    <decisionTable id="DecisionTable_0z6l9uq">
+      <input id="InputClause_18fu5m7" label="required skills">
+        <inputExpression id="LiteralExpression_1cxdiy2" typeRef="boolean" />
+      </input>
+      <input id="InputClause_0c8yc8f" label="soft skills">
+        <inputExpression id="LiteralExpression_0cnz45y" typeRef="boolean">
+          <text></text>
+        </inputExpression>
+      </input>
+      <output id="OutputClause_11wi8al" label="next stage" typeRef="string">
+        <outputValues id="UnaryTests_0kzl1ey">
+          <text>"next stage","fail"</text>
+        </outputValues>
+      </output>
+      <rule id="DecisionRule_016o89w">
+        <inputEntry id="UnaryTests_1xi7po1">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0fsufml">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1d08kwe">
+          <text>"next stage"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0z452e7">
+        <inputEntry id="UnaryTests_0yw86oj">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0n8czhj">
+          <text>false</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0vl4vor">
+          <text>"fail"</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram>
+      <dmndi:DMNShape id="Decision_1z11zp6_di" dmnElementRef="Decision_1z11zp6">
+        <dc:Bounds height="80" width="180" x="360" y="100" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="DMNEdge_1gt32l8" dmnElementRef="InformationRequirement_1cotbae">
+        <di:waypoint x="270" y="240" />
+        <di:waypoint x="405" y="200" />
+        <di:waypoint x="405" y="180" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNEdge id="DMNEdge_0pa0wjh" dmnElementRef="InformationRequirement_0aivor2">
+        <di:waypoint x="460" y="240" />
+        <di:waypoint x="450" y="200" />
+        <di:waypoint x="450" y="180" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNEdge id="DMNEdge_12ljlfd" dmnElementRef="InformationRequirement_0maw952">
+        <di:waypoint x="650" y="240" />
+        <di:waypoint x="495" y="200" />
+        <di:waypoint x="495" y="180" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNShape id="DMNShape_1c0s44s" dmnElementRef="InputData_0uw2unj">
+        <dc:Bounds height="45" width="125" x="207" y="407" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="DMNEdge_01rt552" dmnElementRef="InformationRequirement_1ctkzph">
+        <di:waypoint x="270" y="407" />
+        <di:waypoint x="240" y="340" />
+        <di:waypoint x="240" y="320" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNShape id="DMNShape_1eqoe3c" dmnElementRef="InputData_0ibhfoj">
+        <dc:Bounds height="45" width="125" x="397" y="407" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="DMNEdge_15gmry4" dmnElementRef="InformationRequirement_0o8luby">
+        <di:waypoint x="460" y="407" />
+        <di:waypoint x="460" y="340" />
+        <di:waypoint x="460" y="320" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNShape id="DMNShape_03gx5oe" dmnElementRef="InputData_1dprtav">
+        <dc:Bounds height="45" width="125" x="587" y="407" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="DMNEdge_0421waf" dmnElementRef="InformationRequirement_1jz6zzn">
+        <di:waypoint x="650" y="407" />
+        <di:waypoint x="680" y="340" />
+        <di:waypoint x="680" y="320" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNEdge id="DMNEdge_1y2zz0j" dmnElementRef="InformationRequirement_0jr7i9b">
+        <di:waypoint x="460" y="407" />
+        <di:waypoint x="620" y="340" />
+        <di:waypoint x="620" y="320" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNEdge id="DMNEdge_0r6w8xd" dmnElementRef="InformationRequirement_0rrxlzo">
+        <di:waypoint x="460" y="407" />
+        <di:waypoint x="300" y="340" />
+        <di:waypoint x="300" y="320" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNShape id="DMNShape_1ertjkx" dmnElementRef="Decision_16vycj6">
+        <dc:Bounds height="80" width="180" x="180" y="240" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="DMNShape_10gmxwa" dmnElementRef="Decision_1bw45m2">
+        <dc:Bounds height="80" width="180" x="370" y="240" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="DMNShape_00bqxdm" dmnElementRef="Decision_1nxhgw9">
+        <dc:Bounds height="80" width="180" x="560" y="240" />
+      </dmndi:DMNShape>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>

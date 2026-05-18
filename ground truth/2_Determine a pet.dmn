@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dmn:definitions xmlns:dmn="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:ns2="http://www.omg.org/spec/DMN/20180521/DI/" xmlns:ns4="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:ns3="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns="http://www.signavio.com/dmn/1.2/diagram/258b222e32d14e8ba22b6d5b729b7dcb.xml" xmlns:sigExt="http://www.signavio.com/schema/dmn/1.2/" xmlns:feel="http://www.omg.org/spec/DMN/20180521/FEEL/" id="id-84778d6630234c12826e53495b06ad03" name="Determine a pet" namespace="http://www.signavio.com/dmn/1.2/diagram/258b222e32d14e8ba22b6d5b729b7dcb.xml" exporter="Camunda Modeler" exporterVersion="5.44.0" sigExt:revisionNumber="1" sigExt:revisionId="f96a59ad922c4dfcb6babf5d0da6937a">
+  <dmn:itemDefinition id="id-704b5fae8aaecdc627616f210306abf7" label="Pet Decision" name="petDecision" typeLanguage="http://www.omg.org/spec/DMN/20180521/FEEL/" isCollection="false">
+    <dmn:typeRef>string</dmn:typeRef>
+  </dmn:itemDefinition>
+  <dmn:itemDefinition id="id-017be39a6d4ef8349dd22d91c8c5fc67" label="Garden availability" name="gardenAvailability" typeLanguage="http://www.omg.org/spec/DMN/20180521/FEEL/" isCollection="false">
+    <dmn:typeRef>boolean</dmn:typeRef>
+  </dmn:itemDefinition>
+  <dmn:itemDefinition id="id-5fd4202550e49bf9aebc2fd8d4f987fd" label="Time availability" name="timeAvailability" typeLanguage="http://www.omg.org/spec/DMN/20180521/FEEL/" isCollection="false">
+    <dmn:typeRef>string</dmn:typeRef>
+  </dmn:itemDefinition>
+  <dmn:itemDefinition id="id-87305703d9c9a0f3d7517dee272c0800" label="Allergies" name="allergies" typeLanguage="http://www.omg.org/spec/DMN/20180521/FEEL/" isCollection="false">
+    <dmn:typeRef>boolean</dmn:typeRef>
+  </dmn:itemDefinition>
+  <dmn:itemDefinition id="id-606e035264dce468c93dc2f2b6792b85" label="" name="newElement" typeLanguage="http://www.omg.org/spec/DMN/20180521/FEEL/" isCollection="false">
+    <dmn:typeRef>string</dmn:typeRef>
+  </dmn:itemDefinition>
+  <dmn:itemDefinition id="id-13214ac1114efde000a88811d35802c9" label="Kids" name="kids" typeLanguage="http://www.omg.org/spec/DMN/20180521/FEEL/" isCollection="false">
+    <dmn:typeRef>boolean</dmn:typeRef>
+  </dmn:itemDefinition>
+  <dmn:inputData id="id-b17b7a2d135d06c35c60ea7562e0192b" label="Garden availability" name="gardenAvailability" sigExt:diagramId="258b222e32d14e8ba22b6d5b729b7dcb" sigExt:shapeId="sid-CB46DD66-55AA-4C75-A366-D89108DF86BD">
+    <dmn:variable id="id-b17b7a2d135d06c35c60ea7562e0192b_variable" name="gardenAvailability" typeRef="gardenAvailability" />
+  </dmn:inputData>
+  <dmn:inputData id="id-4b7b7c8043fd27f76f99036898b7883a" label="Time availability" name="timeAvailability" sigExt:diagramId="258b222e32d14e8ba22b6d5b729b7dcb" sigExt:shapeId="sid-6DB5ACBA-A2DF-4CDF-A5BE-86ECCF95592B">
+    <dmn:variable id="id-4b7b7c8043fd27f76f99036898b7883a_variable" name="timeAvailability" typeRef="timeAvailability" />
+  </dmn:inputData>
+  <dmn:inputData id="id-d6e3f621a9bfd93b028b720344161d1f" label="Kids" name="kids" sigExt:diagramId="258b222e32d14e8ba22b6d5b729b7dcb" sigExt:shapeId="sid-344A7BD8-D442-49E1-8183-18B0280C9D23">
+    <dmn:variable id="id-d6e3f621a9bfd93b028b720344161d1f_variable" name="kids" typeRef="kids" />
+  </dmn:inputData>
+  <dmn:inputData id="id-cdac2234410f32f55dfe95a2b660bc07" label="Allergies" name="allergies" sigExt:diagramId="258b222e32d14e8ba22b6d5b729b7dcb" sigExt:shapeId="sid-942EA690-388F-46CF-8C12-E977001246F4">
+    <dmn:variable id="id-cdac2234410f32f55dfe95a2b660bc07_variable" name="allergies" typeRef="allergies" />
+  </dmn:inputData>
+  <dmn:decision id="id-6abaf0b807d0f88a5e6ab7f5caa743d9" label="Pet Decision" name="Pet Decision" sigExt:diagramId="258b222e32d14e8ba22b6d5b729b7dcb" sigExt:shapeId="sid-3C6F5B47-8CA7-4B74-B41A-87F0F75BF158">
+    <dmn:variable id="id-6abaf0b807d0f88a5e6ab7f5caa743d9_variable" name="Pet Decision" typeRef="petDecision" />
+    <dmn:informationRequirement>
+      <dmn:requiredInput href="#id-4b7b7c8043fd27f76f99036898b7883a" />
+    </dmn:informationRequirement>
+    <dmn:informationRequirement>
+      <dmn:requiredInput href="#id-cdac2234410f32f55dfe95a2b660bc07" />
+    </dmn:informationRequirement>
+    <dmn:informationRequirement>
+      <dmn:requiredInput href="#id-d6e3f621a9bfd93b028b720344161d1f" />
+    </dmn:informationRequirement>
+    <dmn:informationRequirement>
+      <dmn:requiredInput href="#id-b17b7a2d135d06c35c60ea7562e0192b" />
+    </dmn:informationRequirement>
+    <dmn:informationRequirement id="InformationRequirement_1bwbd2a">
+      <dmn:requiredInput href="#InputData_119w5hw" />
+    </dmn:informationRequirement>
+    <dmn:informationRequirement id="InformationRequirement_1f2s0r4">
+      <dmn:requiredInput href="#InputData_1hxhxur" />
+    </dmn:informationRequirement>
+    <dmn:informationRequirement id="InformationRequirement_02i3l0s">
+      <dmn:requiredInput href="#InputData_1qxmhlq" />
+    </dmn:informationRequirement>
+    <dmn:informationRequirement id="InformationRequirement_0sqegk9">
+      <dmn:requiredInput href="#InputData_0updp4e" />
+    </dmn:informationRequirement>
+    <dmn:decisionTable>
+      <dmn:input id="id-22710869ff0e9e1f366cb9501b29aedd" label="Allergies">
+        <dmn:inputExpression>
+          <dmn:text>allergies</dmn:text>
+        </dmn:inputExpression>
+      </dmn:input>
+      <dmn:input id="id-c1befe230a2817566a3a1e5618f93f05" label="Kids">
+        <dmn:inputExpression>
+          <dmn:text>kids</dmn:text>
+        </dmn:inputExpression>
+      </dmn:input>
+      <dmn:input id="id-37b66802f161bdce11f338468cc20f22" label="Time availability" biodi:width="264">
+        <dmn:inputExpression>
+          <dmn:text>timeAvailability</dmn:text>
+        </dmn:inputExpression>
+      </dmn:input>
+      <dmn:input id="id-6a3535ba34119b9bb5e98c1e845e1b93" label="Garden availability">
+        <dmn:inputExpression>
+          <dmn:text>gardenAvailability</dmn:text>
+        </dmn:inputExpression>
+      </dmn:input>
+      <dmn:output id="id-7881855322d14fcfb29c8119ef9ff967" label="Pet Decision" name="petDecision" typeRef="newElement" />
+      <dmn:annotation name="New Annotation" />
+      <dmn:rule id="id-af649ed6a8157f78e02170442312af07">
+        <dmn:inputEntry>
+          <dmn:text>true</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry>
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry>
+          <dmn:text>"none"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry>
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:outputEntry>
+          <dmn:text>"no pet"</dmn:text>
+        </dmn:outputEntry>
+        <dmn:annotationEntry>
+          <dmn:text>string(-)</dmn:text>
+        </dmn:annotationEntry>
+      </dmn:rule>
+      <dmn:rule id="id-e9bec4302c00ef4e80ea80cfa7a254cc">
+        <dmn:inputEntry>
+          <dmn:text>false</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry>
+          <dmn:text>false</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry>
+          <dmn:text>"none"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry>
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:outputEntry>
+          <dmn:text>"no pet"</dmn:text>
+        </dmn:outputEntry>
+        <dmn:annotationEntry>
+          <dmn:text>string(-)</dmn:text>
+        </dmn:annotationEntry>
+      </dmn:rule>
+      <dmn:rule id="id-f3ef4a6cad3bce3ec91aeaf709ee39fe">
+        <dmn:inputEntry>
+          <dmn:text>true</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry>
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry>
+          <dmn:text>"in (\"not a lot\",\"average\",\"a lot\")"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry>
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:outputEntry>
+          <dmn:text>"fish"</dmn:text>
+        </dmn:outputEntry>
+        <dmn:annotationEntry>
+          <dmn:text>string(-)</dmn:text>
+        </dmn:annotationEntry>
+      </dmn:rule>
+      <dmn:rule id="id-6e6170230473d436eb2dcac2df725d6e">
+        <dmn:inputEntry>
+          <dmn:text>false</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry>
+          <dmn:text>true</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry>
+          <dmn:text>"low"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry>
+          <dmn:text>false</dmn:text>
+        </dmn:inputEntry>
+        <dmn:outputEntry>
+          <dmn:text>"fish"</dmn:text>
+        </dmn:outputEntry>
+        <dmn:annotationEntry>
+          <dmn:text>string(-)</dmn:text>
+        </dmn:annotationEntry>
+      </dmn:rule>
+      <dmn:rule id="id-f29f64e73024122063700cba655e9d56">
+        <dmn:inputEntry>
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry>
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry>
+          <dmn:text>"in (\"average\", \"a lot\")"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry>
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:outputEntry>
+          <dmn:text>"fish"</dmn:text>
+        </dmn:outputEntry>
+        <dmn:annotationEntry>
+          <dmn:text>string(-)</dmn:text>
+        </dmn:annotationEntry>
+      </dmn:rule>
+      <dmn:rule id="id-4c8bb79da8ef8e0a7b84aee2a5063372">
+        <dmn:inputEntry>
+          <dmn:text>false</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry>
+          <dmn:text>true</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry>
+          <dmn:text>"high"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry>
+          <dmn:text>true</dmn:text>
+        </dmn:inputEntry>
+        <dmn:outputEntry>
+          <dmn:text>"dog"</dmn:text>
+        </dmn:outputEntry>
+        <dmn:annotationEntry>
+          <dmn:text>string(-)</dmn:text>
+        </dmn:annotationEntry>
+      </dmn:rule>
+      <dmn:rule id="id-396d58642d5705a8f707a4ca664c4d10">
+        <dmn:inputEntry>
+          <dmn:text>false</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry>
+          <dmn:text>false</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry>
+          <dmn:text>"in (\"average\",  \"high\")"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry>
+          <dmn:text>true</dmn:text>
+        </dmn:inputEntry>
+        <dmn:outputEntry>
+          <dmn:text>"dog"</dmn:text>
+        </dmn:outputEntry>
+        <dmn:annotationEntry>
+          <dmn:text>string(-)</dmn:text>
+        </dmn:annotationEntry>
+      </dmn:rule>
+      <dmn:rule id="id-ec360142ce83038e5002b0732c0d931b">
+        <dmn:inputEntry>
+          <dmn:text>false</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry>
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry>
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry>
+          <dmn:text>false</dmn:text>
+        </dmn:inputEntry>
+        <dmn:outputEntry>
+          <dmn:text>"cat"</dmn:text>
+        </dmn:outputEntry>
+        <dmn:annotationEntry>
+          <dmn:text>string(-)</dmn:text>
+        </dmn:annotationEntry>
+      </dmn:rule>
+    </dmn:decisionTable>
+  </dmn:decision>
+  <dmn:inputData id="InputData_0updp4e" name="Allergies" />
+  <dmn:inputData id="InputData_1qxmhlq" name="Time availability" />
+  <dmn:inputData id="InputData_1hxhxur" name="Kids" />
+  <dmn:inputData id="InputData_119w5hw" name="Garden Availability" />
+  <ns3:DMNDI>
+    <ns3:DMNDiagram id="DMNDiagram_0pc1jur">
+      <ns3:DMNShape id="DMNShape_0ilpfbj" dmnElementRef="id-6abaf0b807d0f88a5e6ab7f5caa743d9">
+        <ns4:Bounds height="80" width="180" x="150" y="150" />
+      </ns3:DMNShape>
+      <ns3:DMNShape id="DMNShape_15peu7y" dmnElementRef="InputData_0updp4e">
+        <ns4:Bounds height="45" width="125" x="-3" y="309" />
+      </ns3:DMNShape>
+      <ns3:DMNShape id="DMNShape_0zfb7sf" dmnElementRef="InputData_1qxmhlq">
+        <ns4:Bounds height="45" width="125" x="147" y="309" />
+      </ns3:DMNShape>
+      <ns3:DMNShape id="DMNShape_0lfhuax" dmnElementRef="InputData_1hxhxur">
+        <ns4:Bounds height="45" width="125" x="287" y="309" />
+      </ns3:DMNShape>
+      <ns3:DMNShape id="DMNShape_06ytjjq" dmnElementRef="InputData_119w5hw">
+        <ns4:Bounds height="45" width="125" x="428" y="310" />
+      </ns3:DMNShape>
+      <ns3:DMNEdge id="DMNEdge_1hzvcps" dmnElementRef="InformationRequirement_1bwbd2a">
+        <ns2:waypoint x="491" y="310" />
+        <ns2:waypoint x="294" y="250" />
+        <ns2:waypoint x="294" y="230" />
+      </ns3:DMNEdge>
+      <ns3:DMNEdge id="DMNEdge_0d25elw" dmnElementRef="InformationRequirement_1f2s0r4">
+        <ns2:waypoint x="350" y="309" />
+        <ns2:waypoint x="258" y="250" />
+        <ns2:waypoint x="258" y="230" />
+      </ns3:DMNEdge>
+      <ns3:DMNEdge id="DMNEdge_01xf8nc" dmnElementRef="InformationRequirement_02i3l0s">
+        <ns2:waypoint x="210" y="309" />
+        <ns2:waypoint x="222" y="250" />
+        <ns2:waypoint x="222" y="230" />
+      </ns3:DMNEdge>
+      <ns3:DMNEdge id="DMNEdge_0wqsr25" dmnElementRef="InformationRequirement_0sqegk9">
+        <ns2:waypoint x="60" y="309" />
+        <ns2:waypoint x="186" y="250" />
+        <ns2:waypoint x="186" y="230" />
+      </ns3:DMNEdge>
+    </ns3:DMNDiagram>
+  </ns3:DMNDI>
+</dmn:definitions>

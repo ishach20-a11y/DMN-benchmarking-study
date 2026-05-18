@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:modeler="http://camunda.org/schema/modeler/1.0" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" id="Definitions_0m47v4x" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.44.0" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.8.0">
+  <decision id="Decision_0luluou" name="transportation mode">
+    <informationRequirement id="InformationRequirement_1prmv46">
+      <requiredInput href="#InputData_04m0k4w" />
+    </informationRequirement>
+    <informationRequirement id="InformationRequirement_1exg6be">
+      <requiredInput href="#InputData_1w9ed4u" />
+    </informationRequirement>
+    <informationRequirement id="InformationRequirement_0lqara0">
+      <requiredInput href="#InputData_0ddvejs" />
+    </informationRequirement>
+    <decisionTable id="DecisionTable_1e11pgp">
+      <input id="Input_1" label="timetable of bus">
+        <inputExpression id="InputExpression_1" typeRef="time">
+          <text></text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_1ocr04m" label="weather conditions">
+        <inputExpression id="LiteralExpression_1g30kl0" typeRef="string">
+          <text></text>
+        </inputExpression>
+        <inputValues id="UnaryTests_11y78y7">
+          <text>"rain","sunny"</text>
+        </inputValues>
+      </input>
+      <input id="InputClause_0i0r316" label="weight of bag">
+        <inputExpression id="LiteralExpression_00xaa95" typeRef="string">
+          <text></text>
+        </inputExpression>
+        <inputValues id="UnaryTests_1fnqdyy">
+          <text>"heavy","light"</text>
+        </inputValues>
+      </input>
+      <output id="Output_1" label="transportation mode" typeRef="string">
+        <outputValues id="UnaryTests_0wa5ta5">
+          <text>"bus","walk"</text>
+        </outputValues>
+      </output>
+      <rule id="DecisionRule_06grvdz">
+        <inputEntry id="UnaryTests_1f1jhxn">
+          <text>&gt; 10 min</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0b3bmrs">
+          <text>"rain"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0lzkupa">
+          <text>"heavy"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0885clq">
+          <text>"bus"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1qho4cv">
+        <inputEntry id="UnaryTests_13hv4jt">
+          <text>&gt; 10 min</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_158h360">
+          <text>"rain"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0ya6mcz">
+          <text>"light"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1wzjyu7">
+          <text>"bus"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1c6tvk6">
+        <inputEntry id="UnaryTests_04mjxp9">
+          <text>&gt; 10 min</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0zs0kkr">
+          <text>"sunny"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0yxji1t">
+          <text>"heavy"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0qthw8m">
+          <text>"bus"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_19ivbpf">
+        <inputEntry id="UnaryTests_0rtgql9">
+          <text>&gt; 10 min</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1t91y6v">
+          <text>"sunny"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1r5mv7g">
+          <text>"light"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_16oqv38">
+          <text>"walk"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_165cke3">
+        <inputEntry id="UnaryTests_02lqfia">
+          <text>=&lt; 10 min</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0opxceo">
+          <text>"rain"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0qm6gq4">
+          <text>"heavy"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_11e42p5">
+          <text>"bus"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0xmk1qk">
+        <inputEntry id="UnaryTests_15v8h17">
+          <text>=&lt; 10 min</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1h1s5e1">
+          <text>"rain"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1w725ba">
+          <text>"light"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0ka9w2n">
+          <text>"bus"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0c1rnnv">
+        <inputEntry id="UnaryTests_158ilzo">
+          <text>=&lt; 10 min</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1iely57">
+          <text>"sunny"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0tsjo3n">
+          <text>"heavy"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_09bl98n">
+          <text>"bus"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_02vqpbf">
+        <inputEntry id="UnaryTests_1e0d7gx">
+          <text>=&lt; 10 min</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0rtwxhh">
+          <text>"sunny"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1svp9ya">
+          <text>"light"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1lesky7">
+          <text>"walk"</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <inputData id="InputData_04m0k4w" name="timetable of bus" />
+  <inputData id="InputData_1w9ed4u" name="weather condition" />
+  <inputData id="InputData_0ddvejs" name="weight of bag" />
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram>
+      <dmndi:DMNShape id="Decision_0luluou_di" dmnElementRef="Decision_0luluou">
+        <dc:Bounds height="80" width="180" x="330" y="190" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="DMNShape_1pffoln" dmnElementRef="InputData_04m0k4w">
+        <dc:Bounds height="45" width="125" x="157" y="367" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="DMNEdge_15op04y" dmnElementRef="InformationRequirement_1prmv46">
+        <di:waypoint x="220" y="367" />
+        <di:waypoint x="375" y="290" />
+        <di:waypoint x="375" y="270" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNShape id="DMNShape_1ibdba8" dmnElementRef="InputData_1w9ed4u">
+        <dc:Bounds height="45" width="125" x="317" y="367" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="DMNEdge_1qzt5g8" dmnElementRef="InformationRequirement_1exg6be">
+        <di:waypoint x="380" y="367" />
+        <di:waypoint x="420" y="290" />
+        <di:waypoint x="420" y="270" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNShape id="DMNShape_1qvnc2f" dmnElementRef="InputData_0ddvejs">
+        <dc:Bounds height="45" width="125" x="507" y="367" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="DMNEdge_0ilkyte" dmnElementRef="InformationRequirement_0lqara0">
+        <di:waypoint x="570" y="367" />
+        <di:waypoint x="465" y="290" />
+        <di:waypoint x="465" y="270" />
+      </dmndi:DMNEdge>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>

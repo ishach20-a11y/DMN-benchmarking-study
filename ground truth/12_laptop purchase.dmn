@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:modeler="http://camunda.org/schema/modeler/1.0" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" id="Definitions_149udkm" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.44.0" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.8.0">
+  <inputData id="InputData_191ie5z" name="price" />
+  <inputData id="InputData_1dilx6x" name="processor" />
+  <inputData id="InputData_1gb5m5l" name="storage" />
+  <inputData id="InputData_1k8i1c7" name="screen size" />
+  <inputData id="InputData_0kco9pw" name="battery life" />
+  <decision id="Decision_1bfvejq" name="Fulfilled requirements">
+    <informationRequirement id="InformationRequirement_0kpgpcn">
+      <requiredInput href="#InputData_1dilx6x" />
+    </informationRequirement>
+    <informationRequirement id="InformationRequirement_0cdyw91">
+      <requiredInput href="#InputData_1gb5m5l" />
+    </informationRequirement>
+    <informationRequirement id="InformationRequirement_0i99ram">
+      <requiredInput href="#InputData_1k8i1c7" />
+    </informationRequirement>
+    <informationRequirement id="InformationRequirement_0h5jpsy">
+      <requiredInput href="#InputData_0kco9pw" />
+    </informationRequirement>
+    <decisionTable id="DecisionTable_15gllnx">
+      <input id="InputClause_0iowchl" label="processor">
+        <inputExpression id="LiteralExpression_1w8cnca" typeRef="boolean" />
+      </input>
+      <input id="InputClause_1v6jpcq" label="storage">
+        <inputExpression id="LiteralExpression_0s3g1c5" typeRef="boolean">
+          <text></text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_12aaw4g" label="screen size">
+        <inputExpression id="LiteralExpression_1pibf95" typeRef="boolean">
+          <text></text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_1wrx90z" label="battery life">
+        <inputExpression id="LiteralExpression_0ednpwl" typeRef="boolean">
+          <text></text>
+        </inputExpression>
+      </input>
+      <output id="OutputClause_0l0k9hw" label="requirements fulfilled?" typeRef="string">
+        <outputValues id="UnaryTests_0dfp8ku">
+          <text>"compliant","partially compliant","not compliant"</text>
+        </outputValues>
+      </output>
+      <rule id="DecisionRule_1h68pgv">
+        <inputEntry id="UnaryTests_0zsmyd4">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0s3lf71">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0iqtue7">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_03xlg13">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0o7pwsb">
+          <text>"compliant"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_056v94b">
+        <inputEntry id="UnaryTests_1bry2s0">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0a53fjy">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1iusria">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0on100f">
+          <text>false</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1cykdxd">
+          <text>"partially compliant"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0e1yf9n">
+        <inputEntry id="UnaryTests_1uts0pe">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0sv1ixd">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_13v2yli">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1su6vgr">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1h4lzup">
+          <text>"not compliant"</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <decision id="Decision_1wsgt7v" name="buy new laptop?">
+    <informationRequirement id="InformationRequirement_0eq5ubc">
+      <requiredInput href="#InputData_191ie5z" />
+    </informationRequirement>
+    <informationRequirement id="InformationRequirement_0wywy7w">
+      <requiredDecision href="#Decision_1bfvejq" />
+    </informationRequirement>
+    <decisionTable id="DecisionTable_0ktbeuy">
+      <input id="InputClause_1n7e417" label="price">
+        <inputExpression id="LiteralExpression_0qn0bjh" typeRef="number" />
+      </input>
+      <input id="InputClause_0azj98y" label="fulfilled requirements" biodi:width="192">
+        <inputExpression id="LiteralExpression_0cj0h78" typeRef="string">
+          <text></text>
+        </inputExpression>
+        <inputValues id="UnaryTests_0msfm0l">
+          <text>"compliant","partially compliant","not compliant"</text>
+        </inputValues>
+      </input>
+      <output id="OutputClause_0va3is9" label="buy laptop?" typeRef="boolean" />
+      <rule id="DecisionRule_0nd03lp">
+        <inputEntry id="UnaryTests_0jzen8a">
+          <text>=&lt; 750</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0rrvdsr">
+          <text>"compliant"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_18qaq74">
+          <text>true</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_04j3dg8">
+        <inputEntry id="UnaryTests_1ku6spt">
+          <text>=&lt; 700</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1guwd9e">
+          <text>"partially compliant"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0ngcc79">
+          <text>true</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0jp8cxw">
+        <inputEntry id="UnaryTests_013r5js">
+          <text>&gt; 750</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0hif6bp">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0goyk0u">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram>
+      <dmndi:DMNShape id="DMNShape_07r5x6v" dmnElementRef="InputData_191ie5z">
+        <dc:Bounds height="45" width="125" x="307" y="327" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="DMNEdge_15fw28w" dmnElementRef="InformationRequirement_0eq5ubc">
+        <di:waypoint x="370" y="327" />
+        <di:waypoint x="266" y="320" />
+        <di:waypoint x="266" y="300" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNShape id="DMNShape_1lp2pu9" dmnElementRef="InputData_1dilx6x">
+        <dc:Bounds height="45" width="125" x="-23" y="537" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="DMNEdge_00jft6x" dmnElementRef="InformationRequirement_0kpgpcn">
+        <di:waypoint x="40" y="537" />
+        <di:waypoint x="128" y="450" />
+        <di:waypoint x="128" y="430" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNShape id="DMNShape_10vo19v" dmnElementRef="InputData_1gb5m5l">
+        <dc:Bounds height="45" width="125" x="101" y="487" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="DMNEdge_03540gw" dmnElementRef="InformationRequirement_0cdyw91">
+        <di:waypoint x="164" y="487" />
+        <di:waypoint x="164" y="450" />
+        <di:waypoint x="164" y="430" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNShape id="DMNShape_1afade3" dmnElementRef="InputData_1k8i1c7">
+        <dc:Bounds height="45" width="125" x="217" y="527" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="DMNEdge_1mju0jl" dmnElementRef="InformationRequirement_0i99ram">
+        <di:waypoint x="280" y="527" />
+        <di:waypoint x="200" y="450" />
+        <di:waypoint x="200" y="430" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNShape id="DMNShape_1lnua5n" dmnElementRef="InputData_0kco9pw">
+        <dc:Bounds height="45" width="125" x="277" y="457" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="DMNEdge_1hlegsv" dmnElementRef="InformationRequirement_0h5jpsy">
+        <di:waypoint x="340" y="457" />
+        <di:waypoint x="236" y="450" />
+        <di:waypoint x="236" y="430" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNShape id="DMNShape_0dmdcup" dmnElementRef="Decision_1bfvejq">
+        <dc:Bounds height="80" width="180" x="92" y="350" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="DMNShape_1u0yb8l" dmnElementRef="Decision_1wsgt7v">
+        <dc:Bounds height="80" width="180" x="146" y="220" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="DMNEdge_12mq1vq" dmnElementRef="InformationRequirement_0wywy7w">
+        <di:waypoint x="182" y="350" />
+        <di:waypoint x="206" y="320" />
+        <di:waypoint x="206" y="300" />
+      </dmndi:DMNEdge>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>

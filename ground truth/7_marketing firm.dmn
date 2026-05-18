@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:modeler="http://camunda.org/schema/modeler/1.0" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" id="Definitions_0wtfnz2" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.44.0" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.8.0">
+  <decision id="Decision_1urpa95" name="product recommendation">
+    <informationRequirement id="InformationRequirement_1v51bil">
+      <requiredInput href="#InputData_1gfg9jh" />
+    </informationRequirement>
+    <informationRequirement id="InformationRequirement_0t2t1yw">
+      <requiredInput href="#InputData_0b8fvyc" />
+    </informationRequirement>
+    <informationRequirement id="InformationRequirement_1xsycmj">
+      <requiredInput href="#InputData_0szgmsl" />
+    </informationRequirement>
+    <decisionTable id="DecisionTable_1kcv4i9">
+      <input id="Input_1" label="gender" biodi:width="150">
+        <inputExpression id="InputExpression_1" typeRef="string">
+          <text></text>
+        </inputExpression>
+        <inputValues id="UnaryTests_0z4gt69">
+          <text>"male","female"</text>
+        </inputValues>
+      </input>
+      <input id="InputClause_1kswt31" label="city dweller" biodi:width="150">
+        <inputExpression id="LiteralExpression_0d2d0zs" typeRef="boolean">
+          <text></text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_10jut70" label="age group">
+        <inputExpression id="LiteralExpression_1s2hqos" typeRef="number">
+          <text></text>
+        </inputExpression>
+      </input>
+      <output id="Output_1" label="product recommendation" typeRef="string">
+        <outputValues id="UnaryTests_002993q">
+          <text>"product W","product X","product Y","product Z"</text>
+        </outputValues>
+      </output>
+      <rule id="DecisionRule_1soe9yl">
+        <inputEntry id="UnaryTests_1sjwoe3">
+          <text>"female"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1aet06t">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_16z6xqn">
+          <text>&lt;30</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1xt7209">
+          <text>"product W"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_18fi3iq">
+        <inputEntry id="UnaryTests_0b5vxe4">
+          <text>"female"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_15pxvpk">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0qr9vmo">
+          <text>[30..60]</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1ft5df8">
+          <text>"product W"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_03n36ur">
+        <inputEntry id="UnaryTests_14wom1l">
+          <text>"female"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_18k1sjq">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1dj1jvv">
+          <text>&gt;60</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0eyfbka">
+          <text>"product W"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1ixd7xd">
+        <inputEntry id="UnaryTests_0fcjgui">
+          <text>"female"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_157j6ko">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_17tsht6">
+          <text>&lt;30</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0xvgx73">
+          <text>"product X"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_02s103y">
+        <inputEntry id="UnaryTests_01o54sc">
+          <text>"female"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_01j7o23">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1wbakpe">
+          <text>[30..60]</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_10goo28">
+          <text>"product Z"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0n3hvie">
+        <inputEntry id="UnaryTests_1nkfd6g">
+          <text>"Female"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0dz26vk">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_113dr56">
+          <text>&gt;60</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_15zw397">
+          <text></text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0t0qlam">
+        <inputEntry id="UnaryTests_131kfxm">
+          <text>"male"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1ogakhx">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1u1g9y1">
+          <text>&lt;30</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1lw92ux">
+          <text>"product Z"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0l9lscm">
+        <inputEntry id="UnaryTests_1mzs4fj">
+          <text>"male"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_153tehc">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_10uo3ps">
+          <text>[30..60]</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0xitylp">
+          <text>"product Z"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0ogowm0">
+        <inputEntry id="UnaryTests_1baim6d">
+          <text>"male"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1pe2cqj">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0ea4e6x">
+          <text>&gt;60</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_16y7v89">
+          <text>"product Z"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0wf3f22">
+        <inputEntry id="UnaryTests_1dw3kan">
+          <text>"male"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_04rx522">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1mmymuc">
+          <text>&lt;30</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0u3lxbu">
+          <text>"product Z"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1phwyt6">
+        <inputEntry id="UnaryTests_11jqb2e">
+          <text>"male"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0x4dlpz">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0r20f48">
+          <text>[30..60]</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1ibodam">
+          <text>"product Y"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0m5bapn">
+        <inputEntry id="UnaryTests_12ow9km">
+          <text>"male"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_01908ra">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0orkr1g">
+          <text>&gt;60</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0clx8et">
+          <text>"product Z"</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <inputData id="InputData_1gfg9jh" name="gender" />
+  <inputData id="InputData_0b8fvyc" name="city dweller" />
+  <inputData id="InputData_0szgmsl" name="age group" />
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram>
+      <dmndi:DMNShape id="Decision_1urpa95_di" dmnElementRef="Decision_1urpa95">
+        <dc:Bounds height="80" width="180" x="70" y="80" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="DMNShape_1mnpl21" dmnElementRef="InputData_1gfg9jh">
+        <dc:Bounds height="45" width="125" x="-43" y="228" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="DMNShape_0tdqqcd" dmnElementRef="InputData_0b8fvyc">
+        <dc:Bounds height="45" width="125" x="97" y="228" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="DMNShape_1lgxyke" dmnElementRef="InputData_0szgmsl">
+        <dc:Bounds height="45" width="125" x="237" y="228" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="DMNEdge_0bzg18g" dmnElementRef="InformationRequirement_1v51bil">
+        <di:waypoint x="20" y="228" />
+        <di:waypoint x="115" y="180" />
+        <di:waypoint x="115" y="160" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNEdge id="DMNEdge_1b5d6vj" dmnElementRef="InformationRequirement_0t2t1yw">
+        <di:waypoint x="160" y="228" />
+        <di:waypoint x="160" y="180" />
+        <di:waypoint x="160" y="160" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNEdge id="DMNEdge_17krm5n" dmnElementRef="InformationRequirement_1xsycmj">
+        <di:waypoint x="300" y="228" />
+        <di:waypoint x="205" y="180" />
+        <di:waypoint x="205" y="160" />
+      </dmndi:DMNEdge>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>

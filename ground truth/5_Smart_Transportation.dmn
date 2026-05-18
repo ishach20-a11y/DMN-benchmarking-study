@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:modeler="http://camunda.org/schema/modeler/1.0" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" id="Definitions_15qlps7" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.44.0" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.8.0">
+  <decision id="Decision_0irhtak" name="Cooling system adjustment">
+    <informationRequirement id="InformationRequirement_07cim97">
+      <requiredInput href="#InputData_1jku93y" />
+    </informationRequirement>
+    <decisionTable id="DecisionTable_0ttydpl">
+      <input id="InputClause_081qnoy" label="temperature">
+        <inputExpression id="LiteralExpression_0fsaa2j" typeRef="string" />
+        <inputValues id="UnaryTests_03ga8xv">
+          <text>"high","low","normal"</text>
+        </inputValues>
+      </input>
+      <output id="OutputClause_1cly1od" label="adjustment" typeRef="string">
+        <outputValues id="UnaryTests_1tnzzym">
+          <text>"increase","decrease","maintain"</text>
+        </outputValues>
+      </output>
+      <rule id="DecisionRule_1pd64zr">
+        <inputEntry id="UnaryTests_1goys53">
+          <text>"high"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0bd2dvg">
+          <text>"decrease"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_17nhzz4">
+        <inputEntry id="UnaryTests_17021wn">
+          <text>"normal"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0cdqbvd">
+          <text>"maintain"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_14f2o15">
+        <inputEntry id="UnaryTests_0bg0auo">
+          <text>"low"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0ebjjkh">
+          <text>"increase"</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <inputData id="InputData_1jku93y" name="outside temperature" />
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram>
+      <dmndi:DMNShape id="DMNShape_1k1ldbg" dmnElementRef="Decision_0irhtak">
+        <dc:Bounds height="80" width="180" x="160" y="100" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="DMNShape_078wdh2" dmnElementRef="InputData_1jku93y">
+        <dc:Bounds height="45" width="125" x="187" y="237" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="DMNEdge_10d8d7r" dmnElementRef="InformationRequirement_07cim97">
+        <di:waypoint x="250" y="237" />
+        <di:waypoint x="250" y="200" />
+        <di:waypoint x="250" y="180" />
+      </dmndi:DMNEdge>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>
