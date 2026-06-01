@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:modeler="http://camunda.org/schema/modeler/1.0" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" id="Definitions_MealDecision" name="Meal Decision DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.44.0" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.8.0">
+  <decision id="Decision_MealAction" name="Meal Action">
+    <informationRequirement id="InformationRequirement_1">
+      <requiredDecision href="#Decision_MealIntensity" />
+    </informationRequirement>
+    <informationRequirement id="InformationRequirement_2">
+      <requiredInput href="#InputData_Finances" />
+    </informationRequirement>
+    <decisionTable id="DecisionTable_Action" hitPolicy="UNIQUE">
+      <input id="Input_Intensity" label="Meal Intensity">
+        <inputExpression id="Expression_Intensity" typeRef="string">
+          <text>mealIntensity</text>
+        </inputExpression>
+      </input>
+      <input id="Input_Finances" label="Finances">
+        <inputExpression id="Expression_Finances" typeRef="number">
+          <text>finances</text>
+        </inputExpression>
+      </input>
+      <output id="Output_Action" label="Action" name="action" typeRef="string" />
+      <rule id="Rule_Action_1">
+        <inputEntry id="Entry_Action_1_1">
+          <text>"light"</text>
+        </inputEntry>
+        <inputEntry id="Entry_Action_1_2">
+          <text>-</text>
+        </inputEntry>
+        <outputEntry id="Result_Action_1">
+          <text>"snack"</text>
+        </outputEntry>
+      </rule>
+      <rule id="Rule_Action_2">
+        <inputEntry id="Entry_Action_2_1">
+          <text>"urgent"</text>
+        </inputEntry>
+        <inputEntry id="Entry_Action_2_2">
+          <text>&lt; 10</text>
+        </inputEntry>
+        <outputEntry id="Result_Action_2">
+          <text>"snack"</text>
+        </outputEntry>
+      </rule>
+      <rule id="Rule_Action_3">
+        <inputEntry id="Entry_Action_3_1">
+          <text>"normal"</text>
+        </inputEntry>
+        <inputEntry id="Entry_Action_3_2">
+          <text>&lt; 10</text>
+        </inputEntry>
+        <outputEntry id="Result_Action_3">
+          <text>"cook"</text>
+        </outputEntry>
+      </rule>
+      <rule id="Rule_Action_4">
+        <inputEntry id="Entry_Action_4_1">
+          <text>"full meal"</text>
+        </inputEntry>
+        <inputEntry id="Entry_Action_4_2">
+          <text>&lt; 10</text>
+        </inputEntry>
+        <outputEntry id="Result_Action_4">
+          <text>"cook"</text>
+        </outputEntry>
+      </rule>
+      <rule id="Rule_Action_5">
+        <inputEntry id="Entry_Action_5_1">
+          <text>"urgent"</text>
+        </inputEntry>
+        <inputEntry id="Entry_Action_5_2">
+          <text>&gt;= 10</text>
+        </inputEntry>
+        <outputEntry id="Result_Action_5">
+          <text>"order"</text>
+        </outputEntry>
+      </rule>
+      <rule id="Rule_Action_6">
+        <inputEntry id="Entry_Action_6_1">
+          <text>"normal"</text>
+        </inputEntry>
+        <inputEntry id="Entry_Action_6_2">
+          <text>&gt;= 10</text>
+        </inputEntry>
+        <outputEntry id="Result_Action_6">
+          <text>"order"</text>
+        </outputEntry>
+      </rule>
+      <rule id="Rule_Action_7">
+        <inputEntry id="Entry_Action_7_1">
+          <text>"full meal"</text>
+        </inputEntry>
+        <inputEntry id="Entry_Action_7_2">
+          <text>&gt;= 10</text>
+        </inputEntry>
+        <outputEntry id="Result_Action_7">
+          <text>"order"</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <decision id="Decision_MealIntensity" name="Meal Intensity">
+    <informationRequirement id="InformationRequirement_3">
+      <requiredInput href="#InputData_Hunger" />
+    </informationRequirement>
+    <informationRequirement id="InformationRequirement_4">
+      <requiredInput href="#InputData_Time" />
+    </informationRequirement>
+    <decisionTable id="DecisionTable_Intensity" hitPolicy="UNIQUE">
+      <input id="Input_Hunger" label="Hunger Level">
+        <inputExpression id="Expression_Hunger" typeRef="string">
+          <text>hungerLevel</text>
+        </inputExpression>
+      </input>
+      <input id="Input_Time" label="Time Available">
+        <inputExpression id="Expression_Time" typeRef="string">
+          <text>timeAvailable</text>
+        </inputExpression>
+      </input>
+      <output id="Output_Intensity" label="Meal Intensity" name="mealIntensity" typeRef="string" />
+      <rule id="Rule_Intensity_1">
+        <inputEntry id="Entry_Intensity_1_1">
+          <text>"low"</text>
+        </inputEntry>
+        <inputEntry id="Entry_Intensity_1_2">
+          <text>-</text>
+        </inputEntry>
+        <outputEntry id="Result_Intensity_1">
+          <text>"light"</text>
+        </outputEntry>
+      </rule>
+      <rule id="Rule_Intensity_2">
+        <inputEntry id="Entry_Intensity_2_1">
+          <text>"medium"</text>
+        </inputEntry>
+        <inputEntry id="Entry_Intensity_2_2">
+          <text>-</text>
+        </inputEntry>
+        <outputEntry id="Result_Intensity_2">
+          <text>"normal"</text>
+        </outputEntry>
+      </rule>
+      <rule id="Rule_Intensity_3">
+        <inputEntry id="Entry_Intensity_3_1">
+          <text>"high"</text>
+        </inputEntry>
+        <inputEntry id="Entry_Intensity_3_2">
+          <text>"not enough"</text>
+        </inputEntry>
+        <outputEntry id="Result_Intensity_3">
+          <text>"urgent"</text>
+        </outputEntry>
+      </rule>
+      <rule id="Rule_Intensity_4">
+        <inputEntry id="Entry_Intensity_4_1">
+          <text>"high"</text>
+        </inputEntry>
+        <inputEntry id="Entry_Intensity_4_2">
+          <text>"enough"</text>
+        </inputEntry>
+        <outputEntry id="Result_Intensity_4">
+          <text>"full meal"</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <inputData id="InputData_Hunger" name="Hunger Level" />
+  <inputData id="InputData_Time" name="Time Available" />
+  <inputData id="InputData_Finances" name="Finances" />
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram>
+      <dmndi:DMNShape id="Shape_Decision_MealAction" dmnElementRef="Decision_MealAction">
+        <dc:Bounds height="80" width="180" x="250" y="80" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="Shape_Decision_MealIntensity" dmnElementRef="Decision_MealIntensity">
+        <dc:Bounds height="80" width="180" x="150" y="220" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="Shape_Input_Hunger" dmnElementRef="InputData_Hunger">
+        <dc:Bounds height="45" width="125" x="50" y="350" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="Shape_Input_Time" dmnElementRef="InputData_Time">
+        <dc:Bounds height="45" width="125" x="200" y="350" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="Shape_Input_Finances" dmnElementRef="InputData_Finances">
+        <dc:Bounds height="45" width="125" x="380" y="220" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="Edge_1" dmnElementRef="InformationRequirement_1">
+        <di:waypoint x="240" y="220" />
+        <di:waypoint x="310" y="160" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNEdge id="Edge_2" dmnElementRef="InformationRequirement_2">
+        <di:waypoint x="442" y="220" />
+        <di:waypoint x="370" y="160" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNEdge id="Edge_3" dmnElementRef="InformationRequirement_3">
+        <di:waypoint x="112" y="350" />
+        <di:waypoint x="210" y="300" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNEdge id="Edge_4" dmnElementRef="InformationRequirement_4">
+        <di:waypoint x="262" y="350" />
+        <di:waypoint x="270" y="300" />
+      </dmndi:DMNEdge>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>

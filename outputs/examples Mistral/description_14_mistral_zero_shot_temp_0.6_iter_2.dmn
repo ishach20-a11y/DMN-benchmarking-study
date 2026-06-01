@@ -1,0 +1,188 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:modeler="http://camunda.org/schema/modeler/1.0" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" id="Definitions_00ghp5h" name="DRD" namespace="http://example.com/dmn" exporter="Camunda Modeler" exporterVersion="5.44.0" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.8.0">
+  <inputData id="input_hungerLevel" name="hungerLevel">
+    <variable name="hungerLevel" typeRef="string"/>
+  </inputData>
+  <inputData id="input_timeAvailable" name="timeAvailable">
+    <variable name="timeAvailable" typeRef="boolean"/>
+  </inputData>
+  <inputData id="input_financialSituation" name="financialSituation">
+    <variable name="financialSituation" typeRef="number"/>
+  </inputData>
+  <decision id="decision_mealIntensity" name="mealIntensity">
+    <informationRequirement id="IR_decision_mealIntensity_input_hungerLevel">
+      <requiredInput href="#input_hungerLevel"/>
+    </informationRequirement>
+    <informationRequirement id="IR_decision_mealIntensity_input_timeAvailable">
+      <requiredInput href="#input_timeAvailable"/>
+    </informationRequirement>
+    <decisionTable id="decisionTable_mealIntensity" hitPolicy="UNIQUE">
+      <input id="input1_mealIntensity">
+        <inputExpression id="inputExpression1_mealIntensity" typeRef="string">
+          <text>hungerLevel</text>
+        </inputExpression>
+      </input>
+      <input id="input2_mealIntensity">
+        <inputExpression id="inputExpression2_mealIntensity" typeRef="boolean">
+          <text>timeAvailable</text>
+        </inputExpression>
+      </input>
+      <output id="output_mealIntensity" name="mealIntensity" typeRef="string"/>
+      <rule id="rule1_mealIntensity">
+        <inputEntry id="inputEntry1_rule1_mealIntensity">
+          <text>"low"</text>
+        </inputEntry>
+        <inputEntry id="inputEntry2_rule1_mealIntensity">
+          <text>-</text>
+        </inputEntry>
+        <outputEntry id="outputEntry1_rule1_mealIntensity">
+          <text>"light"</text>
+        </outputEntry>
+      </rule>
+      <rule id="rule2_mealIntensity">
+        <inputEntry id="inputEntry1_rule2_mealIntensity">
+          <text>"medium"</text>
+        </inputEntry>
+        <inputEntry id="inputEntry2_rule2_mealIntensity">
+          <text>-</text>
+        </inputEntry>
+        <outputEntry id="outputEntry1_rule2_mealIntensity">
+          <text>"normal"</text>
+        </outputEntry>
+      </rule>
+      <rule id="rule3_mealIntensity">
+        <inputEntry id="inputEntry1_rule3_mealIntensity">
+          <text>"high"</text>
+        </inputEntry>
+        <inputEntry id="inputEntry2_rule3_mealIntensity">
+          <text>false</text>
+        </inputEntry>
+        <outputEntry id="outputEntry1_rule3_mealIntensity">
+          <text>"urgent"</text>
+        </outputEntry>
+      </rule>
+      <rule id="rule4_mealIntensity">
+        <inputEntry id="inputEntry1_rule4_mealIntensity">
+          <text>"high"</text>
+        </inputEntry>
+        <inputEntry id="inputEntry2_rule4_mealIntensity">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="outputEntry1_rule4_mealIntensity">
+          <text>"full"</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <decision id="decision_mealDecision" name="mealDecision">
+    <informationRequirement id="IR_decision_mealDecision_decision_mealIntensity">
+      <requiredDecision href="#decision_mealIntensity"/>
+    </informationRequirement>
+    <informationRequirement id="IR_decision_mealDecision_input_financialSituation">
+      <requiredInput href="#input_financialSituation"/>
+    </informationRequirement>
+    <decisionTable id="decisionTable_mealDecision" hitPolicy="UNIQUE">
+      <input id="input1_mealDecision">
+        <inputExpression id="inputExpression1_mealDecision" typeRef="string">
+          <text>mealIntensity</text>
+        </inputExpression>
+      </input>
+      <input id="input2_mealDecision">
+        <inputExpression id="inputExpression2_mealDecision" typeRef="number">
+          <text>financialSituation</text>
+        </inputExpression>
+      </input>
+      <output id="output_mealDecision" name="mealDecision" typeRef="string"/>
+      <rule id="rule1_mealDecision">
+        <inputEntry id="inputEntry1_rule1_mealDecision">
+          <text>"light"</text>
+        </inputEntry>
+        <inputEntry id="inputEntry2_rule1_mealDecision">
+          <text>-</text>
+        </inputEntry>
+        <outputEntry id="outputEntry1_rule1_mealDecision">
+          <text>"snack"</text>
+        </outputEntry>
+      </rule>
+      <rule id="rule2_mealDecision">
+        <inputEntry id="inputEntry1_rule2_mealDecision">
+          <text>"urgent"</text>
+        </inputEntry>
+        <inputEntry id="inputEntry2_rule2_mealDecision">
+          <text>&lt; 10</text>
+        </inputEntry>
+        <outputEntry id="outputEntry1_rule2_mealDecision">
+          <text>"snack"</text>
+        </outputEntry>
+      </rule>
+      <rule id="rule3_mealDecision">
+        <inputEntry id="inputEntry1_rule3_mealDecision">
+          <text>"full"</text>
+        </inputEntry>
+        <inputEntry id="inputEntry2_rule3_mealDecision">
+          <text>&lt; 10</text>
+        </inputEntry>
+        <outputEntry id="outputEntry1_rule3_mealDecision">
+          <text>"cook"</text>
+        </outputEntry>
+      </rule>
+      <rule id="rule4_mealDecision">
+        <inputEntry id="inputEntry1_rule4_mealDecision">
+          <text>"normal"</text>
+        </inputEntry>
+        <inputEntry id="inputEntry2_rule4_mealDecision">
+          <text>&gt;= 10</text>
+        </inputEntry>
+        <outputEntry id="outputEntry1_rule4_mealDecision">
+          <text>"order"</text>
+        </outputEntry>
+      </rule>
+      <rule id="rule5_mealDecision">
+        <inputEntry id="inputEntry1_rule5_mealDecision">
+          <text>"full"</text>
+        </inputEntry>
+        <inputEntry id="inputEntry2_rule5_mealDecision">
+          <text>&gt;= 10</text>
+        </inputEntry>
+        <outputEntry id="outputEntry1_rule5_mealDecision">
+          <text>"order"</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram id="DMNDiagram_1" name="DRD">
+      <dmndi:DMNShape id="DMNShape_input_hungerLevel" dmnElementRef="input_hungerLevel">
+        <dc:Bounds x="100" y="300" width="125" height="45"/>
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="DMNShape_input_timeAvailable" dmnElementRef="input_timeAvailable">
+        <dc:Bounds x="300" y="300" width="125" height="45"/>
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="DMNShape_input_financialSituation" dmnElementRef="input_financialSituation">
+        <dc:Bounds x="500" y="300" width="125" height="45"/>
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="DMNShape_decision_mealIntensity" dmnElementRef="decision_mealIntensity">
+        <dc:Bounds x="250" y="100" width="180" height="80"/>
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="DMNShape_decision_mealDecision" dmnElementRef="decision_mealDecision">
+        <dc:Bounds x="350" y="10" width="180" height="80"/>
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="DMNEdge_IR_decision_mealIntensity_input_hungerLevel" dmnElementRef="IR_decision_mealIntensity_input_hungerLevel">
+        <di:waypoint x="162" y="300"/>
+        <di:waypoint x="340" y="180"/>
+      </dmndi:DMNEdge>
+      <dmndi:DMNEdge id="DMNEdge_IR_decision_mealIntensity_input_timeAvailable" dmnElementRef="IR_decision_mealIntensity_input_timeAvailable">
+        <di:waypoint x="362" y="300"/>
+        <di:waypoint x="340" y="180"/>
+      </dmndi:DMNEdge>
+      <dmndi:DMNEdge id="DMNEdge_IR_decision_mealDecision_decision_mealIntensity" dmnElementRef="IR_decision_mealDecision_decision_mealIntensity">
+        <di:waypoint x="340" y="100"/>
+        <di:waypoint x="440" y="90"/>
+      </dmndi:DMNEdge>
+      <dmndi:DMNEdge id="DMNEdge_IR_decision_mealDecision_input_financialSituation" dmnElementRef="IR_decision_mealDecision_input_financialSituation">
+        <di:waypoint x="562" y="300"/>
+        <di:waypoint x="440" y="90"/>
+      </dmndi:DMNEdge>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>

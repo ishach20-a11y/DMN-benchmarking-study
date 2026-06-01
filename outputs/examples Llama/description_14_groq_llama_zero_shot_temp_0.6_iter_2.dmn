@@ -1,0 +1,173 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:modeler="http://camunda.org/schema/modeler/1.0" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" id="Definitions_00ghp5h" name="DRD" namespace="http://example.com/dmn" exporter="Camunda Modeler" exporterVersion="5.44.0" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.8.0">
+
+  <inputData id="input_hunger_level" name="hunger_level">
+    <variable name="hunger_level" typeRef="string"/>
+  </inputData>
+
+  <inputData id="input_time_available" name="time_available">
+    <variable name="time_available" typeRef="string"/>
+  </inputData>
+
+  <inputData id="input_financial_situation" name="financial_situation">
+    <variable name="financial_situation" typeRef="number"/>
+  </inputData>
+
+  <decision id="decision_meal_choice" name="Meal Choice">
+    <informationRequirement id="IR_decision_meal_choice_input_hunger_level">
+      <requiredInput href="#input_hunger_level"/>
+    </informationRequirement>
+    <informationRequirement id="IR_decision_meal_choice_input_time_available">
+      <requiredInput href="#input_time_available"/>
+    </informationRequirement>
+    <informationRequirement id="IR_decision_meal_choice_input_financial_situation">
+      <requiredInput href="#input_financial_situation"/>
+    </informationRequirement>
+    <decisionTable id="decisionTable_meal_choice" hitPolicy="UNIQUE">
+      <input>
+        <inputExpression id="inputExpression_hunger_level" typeRef="string">
+          <text>hunger_level</text>
+        </inputExpression>
+      </input>
+      <input>
+        <inputExpression id="inputExpression_time_available" typeRef="string">
+          <text>time_available</text>
+        </inputExpression>
+      </input>
+      <input>
+        <inputExpression id="inputExpression_financial_situation" typeRef="number">
+          <text>financial_situation</text>
+        </inputExpression>
+      </input>
+      <output name="meal_choice" typeRef="string"/>
+      <rule id="rule_1">
+        <inputEntry>
+          <text>["low"]</text>
+        </inputEntry>
+        <inputEntry>
+          <text>["any"]</text>
+        </inputEntry>
+        <inputEntry>
+          <text>-</text>
+        </inputEntry>
+        <outputEntry>
+          <text>"snack"</text>
+        </outputEntry>
+      </rule>
+      <rule id="rule_2">
+        <inputEntry>
+          <text>["medium"]</text>
+        </inputEntry>
+        <inputEntry>
+          <text>["any"]</text>
+        </inputEntry>
+        <inputEntry>
+          <text>-</text>
+        </inputEntry>
+        <outputEntry>
+          <text>"normal"</text>
+        </outputEntry>
+      </rule>
+      <rule id="rule_3">
+        <inputEntry>
+          <text>["high"]</text>
+        </inputEntry>
+        <inputEntry>
+          <text>["low"]</text>
+        </inputEntry>
+        <inputEntry>
+          <text>-</text>
+        </inputEntry>
+        <outputEntry>
+          <text>"urgent"</text>
+        </outputEntry>
+      </rule>
+      <rule id="rule_4">
+        <inputEntry>
+          <text>["high"]</text>
+        </inputEntry>
+        <inputEntry>
+          <text>["high"]</text>
+        </inputEntry>
+        <inputEntry>
+          <text>-</text>
+        </inputEntry>
+        <outputEntry>
+          <text>"full"</text>
+        </outputEntry>
+      </rule>
+      <rule id="rule_5">
+        <inputEntry>
+          <text>["low"]</text>
+        </inputEntry>
+        <inputEntry>
+          <text>-</text>
+        </inputEntry>
+        <inputEntry>
+          <text>["0..10"]</text>
+        </inputEntry>
+        <outputEntry>
+          <text>"snack"</text>
+        </outputEntry>
+      </rule>
+      <rule id="rule_6">
+        <inputEntry>
+          <text>["medium"]</text>
+        </inputEntry>
+        <inputEntry>
+          <text>-</text>
+        </inputEntry>
+        <inputEntry>
+          <text>["0..10"]</text>
+        </inputEntry>
+        <outputEntry>
+          <text>"cook"</text>
+        </outputEntry>
+      </rule>
+      <rule id="rule_7">
+        <inputEntry>
+          <text>-</text>
+        </inputEntry>
+        <inputEntry>
+          <text>-</text>
+        </inputEntry>
+        <inputEntry>
+          <text>["10.."]</text>
+        </inputEntry>
+        <outputEntry>
+          <text>"order"</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram id="DMNDiagram_1" name="DRD">
+      <dmndi:DMNShape id="DMNShape_input_hunger_level" dmnElementRef="input_hunger_level">
+        <dc:Bounds x="100" y="300" width="160" height="60"/>
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="DMNShape_input_time_available" dmnElementRef="input_time_available">
+        <dc:Bounds x="300" y="300" width="160" height="60"/>
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="DMNShape_input_financial_situation" dmnElementRef="input_financial_situation">
+        <dc:Bounds x="500" y="300" width="160" height="60"/>
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="DMNShape_decision_meal_choice" dmnElementRef="decision_meal_choice">
+        <dc:Bounds x="350" y="100" width="180" height="80"/>
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="DMNEdge_IR_decision_meal_choice_input_hunger_level" dmnElementRef="IR_decision_meal_choice_input_hunger_level">
+        <di:waypoint x="180" y="300"/>
+        <di:waypoint x="350" y="180"/>
+      </dmndi:DMNEdge>
+      <dmndi:DMNEdge id="DMNEdge_IR_decision_meal_choice_input_time_available" dmnElementRef="IR_decision_meal_choice_input_time_available">
+        <di:waypoint x="380" y="300"/>
+        <di:waypoint x="350" y="180"/>
+      </dmndi:DMNEdge>
+      <dmndi:DMNEdge id="DMNEdge_IR_decision_meal_choice_input_financial_situation" dmnElementRef="IR_decision_meal_choice_input_financial_situation">
+        <di:waypoint x="580" y="300"/>
+        <di:waypoint x="350" y="180"/>
+      </dmndi:DMNEdge>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+
+</definitions>

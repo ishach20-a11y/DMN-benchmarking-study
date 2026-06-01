@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:modeler="http://camunda.org/schema/modeler/1.0" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" id="Definitions_MealDecision" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.44.0" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.8.0">
+  <decision id="Decision_MealChoice" name="Meal Choice">
+    <informationRequirement id="InformationRequirement_Intensity">
+      <requiredDecision href="#Decision_Intensity" />
+    </informationRequirement>
+    <informationRequirement id="InformationRequirement_Finances">
+      <requiredInput href="#InputData_Finances" />
+    </informationRequirement>
+    <decisionTable id="DecisionTable_MealChoice" hitPolicy="UNIQUE">
+      <input id="Input_Intensity" label="Intensity">
+        <inputExpression id="InputExpression_Intensity" typeRef="string">
+          <text>intensity</text>
+        </inputExpression>
+        <inputValues id="UnaryTests_Intensity">
+          <text>"light","normal","urgent","full"</text>
+        </inputValues>
+      </input>
+      <input id="Input_Finances" label="Financial Situation">
+        <inputExpression id="InputExpression_Finances" typeRef="number">
+          <text>finances</text>
+        </inputExpression>
+      </input>
+      <output id="Output_Choice" label="Meal Choice" typeRef="string">
+        <outputValues id="UnaryTests_Choice">
+          <text>"snack","cook","order"</text>
+        </outputValues>
+      </output>
+      <rule id="Rule_Choice_1">
+        <inputEntry id="Entry_Choice_1_1">
+          <text>"light"</text>
+        </inputEntry>
+        <inputEntry id="Entry_Choice_1_2">
+          <text>-</text>
+        </inputEntry>
+        <outputEntry id="Output_Choice_1">
+          <text>"snack"</text>
+        </outputEntry>
+      </rule>
+      <rule id="Rule_Choice_2">
+        <inputEntry id="Entry_Choice_2_1">
+          <text>"urgent"</text>
+        </inputEntry>
+        <inputEntry id="Entry_Choice_2_2">
+          <text>&lt; 10</text>
+        </inputEntry>
+        <outputEntry id="Output_Choice_2">
+          <text>"snack"</text>
+        </outputEntry>
+      </rule>
+      <rule id="Rule_Choice_3">
+        <inputEntry id="Entry_Choice_3_1">
+          <text>"normal"</text>
+        </inputEntry>
+        <inputEntry id="Entry_Choice_3_2">
+          <text>&lt; 10</text>
+        </inputEntry>
+        <outputEntry id="Output_Choice_3">
+          <text>"cook"</text>
+        </outputEntry>
+      </rule>
+      <rule id="Rule_Choice_4">
+        <inputEntry id="Entry_Choice_4_1">
+          <text>"full"</text>
+        </inputEntry>
+        <inputEntry id="Entry_Choice_4_2">
+          <text>&lt; 10</text>
+        </inputEntry>
+        <outputEntry id="Output_Choice_4">
+          <text>"cook"</text>
+        </outputEntry>
+      </rule>
+      <rule id="Rule_Choice_5">
+        <inputEntry id="Entry_Choice_5_1">
+          <text>"urgent"</text>
+        </inputEntry>
+        <inputEntry id="Entry_Choice_5_2">
+          <text>&gt;= 10</text>
+        </inputEntry>
+        <outputEntry id="Output_Choice_5">
+          <text>"order"</text>
+        </outputEntry>
+      </rule>
+      <rule id="Rule_Choice_6">
+        <inputEntry id="Entry_Choice_6_1">
+          <text>"normal"</text>
+        </inputEntry>
+        <inputEntry id="Entry_Choice_6_2">
+          <text>&gt;= 10</text>
+        </inputEntry>
+        <outputEntry id="Output_Choice_6">
+          <text>"order"</text>
+        </outputEntry>
+      </rule>
+      <rule id="Rule_Choice_7">
+        <inputEntry id="Entry_Choice_7_1">
+          <text>"full"</text>
+        </inputEntry>
+        <inputEntry id="Entry_Choice_7_2">
+          <text>&gt;= 10</text>
+        </inputEntry>
+        <outputEntry id="Output_Choice_7">
+          <text>"order"</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <decision id="Decision_Intensity" name="Determine Intensity">
+    <informationRequirement id="InformationRequirement_Hunger">
+      <requiredInput href="#InputData_Hunger" />
+    </informationRequirement>
+    <informationRequirement id="InformationRequirement_Time">
+      <requiredInput href="#InputData_Time" />
+    </informationRequirement>
+    <decisionTable id="DecisionTable_Intensity" hitPolicy="UNIQUE">
+      <input id="Input_Hunger" label="Hunger Level">
+        <inputExpression id="InputExpression_Hunger" typeRef="string">
+          <text>hungerLevel</text>
+        </inputExpression>
+        <inputValues id="UnaryTests_Hunger">
+          <text>"low","medium","high"</text>
+        </inputValues>
+      </input>
+      <input id="Input_Time" label="Time Available">
+        <inputExpression id="InputExpression_Time" typeRef="string">
+          <text>timeAvailable</text>
+        </inputExpression>
+        <inputValues id="UnaryTests_Time">
+          <text>"enough","not enough"</text>
+        </inputValues>
+      </input>
+      <output id="Output_Intensity" label="Intensity" typeRef="string">
+        <outputValues id="UnaryTests_Intensity_Out">
+          <text>"light","normal","urgent","full"</text>
+        </outputValues>
+      </output>
+      <rule id="Rule_Intensity_1">
+        <inputEntry id="Entry_Intensity_1_1">
+          <text>"low"</text>
+        </inputEntry>
+        <inputEntry id="Entry_Intensity_1_2">
+          <text>-</text>
+        </inputEntry>
+        <outputEntry id="Output_Intensity_1">
+          <text>"light"</text>
+        </outputEntry>
+      </rule>
+      <rule id="Rule_Intensity_2">
+        <inputEntry id="Entry_Intensity_2_1">
+          <text>"medium"</text>
+        </inputEntry>
+        <inputEntry id="Entry_Intensity_2_2">
+          <text>-</text>
+        </inputEntry>
+        <outputEntry id="Output_Intensity_2">
+          <text>"normal"</text>
+        </outputEntry>
+      </rule>
+      <rule id="Rule_Intensity_3">
+        <inputEntry id="Entry_Intensity_3_1">
+          <text>"high"</text>
+        </inputEntry>
+        <inputEntry id="Entry_Intensity_3_2">
+          <text>"not enough"</text>
+        </inputEntry>
+        <outputEntry id="Output_Intensity_3">
+          <text>"urgent"</text>
+        </outputEntry>
+      </rule>
+      <rule id="Rule_Intensity_4">
+        <inputEntry id="Entry_Intensity_4_1">
+          <text>"high"</text>
+        </inputEntry>
+        <inputEntry id="Entry_Intensity_4_2">
+          <text>"enough"</text>
+        </inputEntry>
+        <outputEntry id="Output_Intensity_4">
+          <text>"full"</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <inputData id="InputData_Hunger" name="hunger level" />
+  <inputData id="InputData_Time" name="time available" />
+  <inputData id="InputData_Finances" name="financial situation" />
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram>
+      <dmndi:DMNShape id="Shape_MealChoice" dmnElementRef="Decision_MealChoice">
+        <dc:Bounds height="80" width="180" x="250" y="80" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="Shape_Intensity" dmnElementRef="Decision_Intensity">
+        <dc:Bounds height="80" width="180" x="150" y="230" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="Shape_Finances" dmnElementRef="InputData_Finances">
+        <dc:Bounds height="45" width="125" x="370" y="247" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="Shape_Hunger" dmnElementRef="InputData_Hunger">
+        <dc:Bounds height="45" width="125" x="50" y="380" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="Shape_Time" dmnElementRef="InputData_Time">
+        <dc:Bounds height="45" width="125" x="230" y="380" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="Edge_Intensity_to_Choice" dmnElementRef="InformationRequirement_Intensity">
+        <di:waypoint x="240" y="230" />
+        <di:waypoint x="310" y="160" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNEdge id="Edge_Finances_to_Choice" dmnElementRef="InformationRequirement_Finances">
+        <di:waypoint x="432" y="247" />
+        <di:waypoint x="370" y="160" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNEdge id="Edge_Hunger_to_Intensity" dmnElementRef="InformationRequirement_Hunger">
+        <di:waypoint x="112" y="380" />
+        <di:waypoint x="210" y="310" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNEdge id="Edge_Time_to_Intensity" dmnElementRef="InformationRequirement_Time">
+        <di:waypoint x="292" y="380" />
+        <di:waypoint x="270" y="310" />
+      </dmndi:DMNEdge>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>

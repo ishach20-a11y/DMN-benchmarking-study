@@ -1,0 +1,178 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:modeler="http://camunda.org/schema/modeler/1.0" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" id="Definitions_00ghp5h" name="DRD" namespace="http://example.com/dmn" exporter="Camunda Modeler" exporterVersion="5.44.0" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.8.0">
+  <inputData id="input_allergies" name="allergies">
+    <variable name="allergies" typeRef="boolean"/>
+  </inputData>
+  <inputData id="input_time" name="time">
+    <variable name="time" typeRef="string"/>
+  </inputData>
+  <inputData id="input_kids" name="kids">
+    <variable name="kids" typeRef="boolean"/>
+  </inputData>
+  <inputData id="input_garden" name="garden">
+    <variable name="garden" typeRef="boolean"/>
+  </inputData>
+  <decision id="decision_pet_adoption" name="Pet Adoption">
+    <informationRequirement id="IR_decision_pet_adoption_input_allergies">
+      <requiredInput href="#input_allergies"/>
+    </informationRequirement>
+    <informationRequirement id="IR_decision_pet_adoption_input_time">
+      <requiredInput href="#input_time"/>
+    </informationRequirement>
+    <informationRequirement id="IR_decision_pet_adoption_input_kids">
+      <requiredInput href="#input_kids"/>
+    </informationRequirement>
+    <informationRequirement id="IR_decision_pet_adoption_input_garden">
+      <requiredInput href="#input_garden"/>
+    </informationRequirement>
+    <decisionTable id="decisionTable_01" hitPolicy="UNIQUE">
+      <input id="input_1" label="allergies">
+        <inputExpression id="inputExpression_1" typeRef="boolean">
+          <text>allergies</text>
+        </inputExpression>
+      </input>
+      <input id="input_2" label="time">
+        <inputExpression id="inputExpression_2" typeRef="string">
+          <text>time</text>
+        </inputExpression>
+      </input>
+      <input id="input_3" label="kids">
+        <inputExpression id="inputExpression_3" typeRef="boolean">
+          <text>kids</text>
+        </inputExpression>
+      </input>
+      <input id="input_4" label="garden">
+        <inputExpression id="inputExpression_4" typeRef="boolean">
+          <text>garden</text>
+        </inputExpression>
+      </input>
+      <output id="output_1" name="pet" typeRef="string"/>
+      <rule id="rule_1">
+        <inputEntry><text>true</text></inputEntry>
+        <inputEntry><text>"none"</text></inputEntry>
+        <inputEntry><text>-</text></inputEntry>
+        <inputEntry><text>-</text></inputEntry>
+        <outputEntry><text>"none"</text></outputEntry>
+      </rule>
+      <rule id="rule_2">
+        <inputEntry><text>true</text></inputEntry>
+        <inputEntry><text>"average"</text></inputEntry>
+        <inputEntry><text>-</text></inputEntry>
+        <inputEntry><text>-</text></inputEntry>
+        <outputEntry><text>"fish"</text></outputEntry>
+      </rule>
+      <rule id="rule_3">
+        <inputEntry><text>true</text></inputEntry>
+        <inputEntry><text>"lot"</text></inputEntry>
+        <inputEntry><text>-</text></inputEntry>
+        <inputEntry><text>-</text></inputEntry>
+        <outputEntry><text>"fish"</text></outputEntry>
+      </rule>
+      <rule id="rule_4">
+        <inputEntry><text>false</text></inputEntry>
+        <inputEntry><text>"none"</text></inputEntry>
+        <inputEntry><text>false</text></inputEntry>
+        <inputEntry><text>-</text></inputEntry>
+        <outputEntry><text>"none"</text></outputEntry>
+      </rule>
+      <rule id="rule_5">
+        <inputEntry><text>false</text></inputEntry>
+        <inputEntry><text>"none"</text></inputEntry>
+        <inputEntry><text>true</text></inputEntry>
+        <inputEntry><text>-</text></inputEntry>
+        <outputEntry><text>"fish"</text></outputEntry>
+      </rule>
+      <rule id="rule_6">
+        <inputEntry><text>false</text></inputEntry>
+        <inputEntry><text>"lot"</text></inputEntry>
+        <inputEntry><text>true</text></inputEntry>
+        <inputEntry><text>true</text></inputEntry>
+        <outputEntry><text>"dog"</text></outputEntry>
+      </rule>
+      <rule id="rule_7">
+        <inputEntry><text>false</text></inputEntry>
+        <inputEntry><text>"average"</text></inputEntry>
+        <inputEntry><text>false</text></inputEntry>
+        <inputEntry><text>true</text></inputEntry>
+        <outputEntry><text>"dog"</text></outputEntry>
+      </rule>
+      <rule id="rule_8">
+        <inputEntry><text>false</text></inputEntry>
+        <inputEntry><text>"lot"</text></inputEntry>
+        <inputEntry><text>false</text></inputEntry>
+        <inputEntry><text>true</text></inputEntry>
+        <outputEntry><text>"dog"</text></outputEntry>
+      </rule>
+      <rule id="rule_9">
+        <inputEntry><text>false</text></inputEntry>
+        <inputEntry><text>"average"</text></inputEntry>
+        <inputEntry><text>true</text></inputEntry>
+        <inputEntry><text>true</text></inputEntry>
+        <outputEntry><text>"cat"</text></outputEntry>
+      </rule>
+      <rule id="rule_10">
+        <inputEntry><text>false</text></inputEntry>
+        <inputEntry><text>"average"</text></inputEntry>
+        <inputEntry><text>true</text></inputEntry>
+        <inputEntry><text>false</text></inputEntry>
+        <outputEntry><text>"cat"</text></outputEntry>
+      </rule>
+      <rule id="rule_11">
+        <inputEntry><text>false</text></inputEntry>
+        <inputEntry><text>"lot"</text></inputEntry>
+        <inputEntry><text>true</text></inputEntry>
+        <inputEntry><text>false</text></inputEntry>
+        <outputEntry><text>"cat"</text></outputEntry>
+      </rule>
+      <rule id="rule_12">
+        <inputEntry><text>false</text></inputEntry>
+        <inputEntry><text>"average"</text></inputEntry>
+        <inputEntry><text>false</text></inputEntry>
+        <inputEntry><text>false</text></inputEntry>
+        <outputEntry><text>"cat"</text></outputEntry>
+      </rule>
+      <rule id="rule_13">
+        <inputEntry><text>false</text></inputEntry>
+        <inputEntry><text>"lot"</text></inputEntry>
+        <inputEntry><text>false</text></inputEntry>
+        <inputEntry><text>false</text></inputEntry>
+        <outputEntry><text>"cat"</text></outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram id="DMNDiagram_1" name="DRD">
+      <dmndi:DMNShape id="DMNShape_decision_pet_adoption" dmnElementRef="decision_pet_adoption">
+        <dc:Bounds x="400" y="100" width="180" height="80"/>
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="DMNShape_input_allergies" dmnElementRef="input_allergies">
+        <dc:Bounds x="100" y="300" width="125" height="45"/>
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="DMNShape_input_time" dmnElementRef="input_time">
+        <dc:Bounds x="300" y="300" width="125" height="45"/>
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="DMNShape_input_kids" dmnElementRef="input_kids">
+        <dc:Bounds x="500" y="300" width="125" height="45"/>
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="DMNShape_input_garden" dmnElementRef="input_garden">
+        <dc:Bounds x="700" y="300" width="125" height="45"/>
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="DMNEdge_IR_decision_pet_adoption_input_allergies" dmnElementRef="IR_decision_pet_adoption_input_allergies">
+        <di:waypoint x="162.5" y="300"/>
+        <di:waypoint x="490" y="180"/>
+      </dmndi:DMNEdge>
+      <dmndi:DMNEdge id="DMNEdge_IR_decision_pet_adoption_input_time" dmnElementRef="IR_decision_pet_adoption_input_time">
+        <di:waypoint x="362.5" y="300"/>
+        <di:waypoint x="490" y="180"/>
+      </dmndi:DMNEdge>
+      <dmndi:DMNEdge id="DMNEdge_IR_decision_pet_adoption_input_kids" dmnElementRef="IR_decision_pet_adoption_input_kids">
+        <di:waypoint x="562.5" y="300"/>
+        <di:waypoint x="490" y="180"/>
+      </dmndi:DMNEdge>
+      <dmndi:DMNEdge id="DMNEdge_IR_decision_pet_adoption_input_garden" dmnElementRef="IR_decision_pet_adoption_input_garden">
+        <di:waypoint x="762.5" y="300"/>
+        <di:waypoint x="490" y="180"/>
+      </dmndi:DMNEdge>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>

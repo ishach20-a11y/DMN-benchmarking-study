@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:modeler="http://camunda.org/schema/modeler/1.0" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" id="Definitions_0k2p9xq" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.44.0" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.8.0">
+  <decision id="Decision_1x8f7h2" name="pet adoption decision">
+    <informationRequirement id="InformationRequirement_0a1b2c3">
+      <requiredInput href="#InputData_1a2b3c4" />
+    </informationRequirement>
+    <informationRequirement id="InformationRequirement_0d4e5f6">
+      <requiredInput href="#InputData_1g7h8i9" />
+    </informationRequirement>
+    <informationRequirement id="InformationRequirement_0j1k2l3">
+      <requiredInput href="#InputData_1m4n5o6" />
+    </informationRequirement>
+    <informationRequirement id="InformationRequirement_0p7q8r9">
+      <requiredInput href="#InputData_1s2t3u4" />
+    </informationRequirement>
+    <informationRequirement id="InformationRequirement_0v5w6x7">
+      <requiredInput href="#InputData_1y8z9a0" />
+    </informationRequirement>
+    <decisionTable id="DecisionTable_1b2c3d4" hitPolicy="UNIQUE">
+      <input id="Input_1a2b3c4" label="allergies">
+        <inputExpression id="InputExpression_1d4e5f6" typeRef="boolean">
+          <text></text>
+        </inputExpression>
+      </input>
+      <input id="Input_1g7h8i9" label="time available">
+        <inputExpression id="InputExpression_1j1k2l3" typeRef="string">
+          <text></text>
+        </inputExpression>
+        <inputValues id="UnaryTests_1m4n5o6">
+          <text>"none","little","average","lot"</text>
+        </inputValues>
+      </input>
+      <input id="Input_1p7q8r9" label="has kids">
+        <inputExpression id="InputExpression_1s2t3u4" typeRef="boolean">
+          <text></text>
+        </inputExpression>
+      </input>
+      <input id="Input_1v5w6x7" label="has garden">
+        <inputExpression id="InputExpression_1y8z9a0" typeRef="boolean">
+          <text></text>
+        </inputExpression>
+      </input>
+      <output id="Output_1z9a8b7" label="pet adoption" typeRef="string">
+        <outputValues id="UnaryTests_1c2d3e4">
+          <text>"no pet","fish","cat","dog"</text>
+        </outputValues>
+      </output>
+      <rule id="DecisionRule_1f5g6h7">
+        <inputEntry id="UnaryTests_1i8j9k0">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1l1m2n3">
+          <text>"none"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1o4p5q6">
+          <text>-</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1r7s8t9">
+          <text>-</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1u0v1w2">
+          <text>"no pet"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1x3y4z5">
+        <inputEntry id="UnaryTests_1a6b7c8">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1d9e0f1">
+          <text>"none"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1g2h3i4">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1j5k6l7">
+          <text>-</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1m8n9o0">
+          <text>"no pet"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1p2q3r4">
+        <inputEntry id="UnaryTests_1s5t6u7">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1v8w9x0">
+          <text>"average","lot"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1y1z2a3">
+          <text>-</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1b4c5d6">
+          <text>-</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1e7f8g9">
+          <text>"fish"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1h0i1j2">
+        <inputEntry id="UnaryTests_1k3l4m5">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1n6o7p8">
+          <text>-</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1q9r0s1">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1t2u3v4">
+          <text>-</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1w5x6y7">
+          <text>"fish"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1z8a9b0">
+        <inputEntry id="UnaryTests_1c1d2e3">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1f4g5h6">
+          <text>"lot"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1i7j8k9">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1l0m1n2">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1o3p4q5">
+          <text>"dog"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1r6s7t8">
+        <inputEntry id="UnaryTests_1u9v0w1">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1x2y3z4">
+          <text>"average","lot"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1a5b6c7">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1d8e9f0">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1g1h2i3">
+          <text>"dog"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1j4k5l6">
+        <inputEntry id="UnaryTests_1m7n8o9">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1p0q1r2">
+          <text>-</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1s3t4u5">
+          <text>-</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1v6w7x8">
+          <text>-</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1y9z0a1">
+          <text>"cat"</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <inputData id="InputData_1a2b3c4" name="allergies" />
+  <inputData id="InputData_1g7h8i9" name="time available" />
+  <inputData id="InputData_1m4n5o6" name="has kids" />
+  <inputData id="InputData_1p7q8r9" name="has garden" />
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram>
+      <dmndi:DMNShape id="Decision_1x8f7h2_di" dmnElementRef="Decision_1x8f7h2">
+        <dc:Bounds height="80" width="180" x="300" y="100" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="DMNShape_1a2b3c4" dmnElementRef="InputData_1a2b3c4">
+        <dc:Bounds height="45" width="125" x="50" y="200" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="DMNEdge_1d4e5f6" dmnElementRef="InformationRequirement_0a1b2c3">
+        <di:waypoint x="112" y="200" />
+        <di:waypoint x="345" y="180" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNShape id="DMNShape_1g7h8i9" dmnElementRef="InputData_1g7h8i9">
+        <dc:Bounds height="45" width="125" x="190" y="200" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="DMNEdge_1j1k2l3" dmnElementRef="InformationRequirement_0d4e5f6">
+        <di:waypoint x="252" y="200" />
+        <di:waypoint x="345" y="180" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNShape id="DMNShape_1m4n5o6" dmnElementRef="InputData_1m4n5o6">
+        <dc:Bounds height="45" width="125" x="330" y="200" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="DMNEdge_1p7q8r9" dmnElementRef="InformationRequirement_0j1k2l3">
+        <di:waypoint x="392" y="200" />
+        <di:waypoint x="390" y="180" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNShape id="DMNShape_1p7q8r9" dmnElementRef="InputData_1p7q8r9">
+        <dc:Bounds height="45" width="125" x="470" y="200" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="DMNEdge_1s2t3u4" dmnElementRef="InformationRequirement_0p7q8r9">
+        <di:waypoint x="532" y="200" />
+        <di:waypoint x="435" y="180" />
+      </dmndi:DMNEdge>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>

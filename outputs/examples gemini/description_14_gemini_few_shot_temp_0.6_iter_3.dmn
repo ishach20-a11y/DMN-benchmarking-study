@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:modeler="http://camunda.org/schema/modeler/1.0" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" id="Definitions_MealDecision" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.44.0" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.8.0">
+  <decision id="Decision_MealChoice" name="Meal Choice">
+    <informationRequirement id="Requirement_Hunger">
+      <requiredInput href="#InputData_Hunger" />
+    </informationRequirement>
+    <informationRequirement id="Requirement_Time">
+      <requiredInput href="#InputData_Time" />
+    </informationRequirement>
+    <informationRequirement id="Requirement_Finances">
+      <requiredInput href="#InputData_Finances" />
+    </informationRequirement>
+    <decisionTable id="DecisionTable_Meal" hitPolicy="UNIQUE">
+      <input id="Input_Hunger" label="hunger level">
+        <inputExpression id="Expr_Hunger" typeRef="string">
+          <text>hungerLevel</text>
+        </inputExpression>
+        <inputValues id="Values_Hunger">
+          <text>"low","medium","high"</text>
+        </inputValues>
+      </input>
+      <input id="Input_Time" label="time available">
+        <inputExpression id="Expr_Time" typeRef="string">
+          <text>timeAvailable</text>
+        </inputExpression>
+        <inputValues id="Values_Time">
+          <text>"enough","not enough"</text>
+        </inputValues>
+      </input>
+      <input id="Input_Finances" label="financial situation">
+        <inputExpression id="Expr_Finances" typeRef="number">
+          <text>finances</text>
+        </inputExpression>
+      </input>
+      <output id="Output_Meal" label="meal choice" name="mealChoice" typeRef="string">
+        <outputValues id="Values_Meal">
+          <text>"snack","cook","order"</text>
+        </outputValues>
+      </output>
+      <rule id="Rule_1">
+        <inputEntry id="Entry_1_1">
+          <text>"low"</text>
+        </inputEntry>
+        <inputEntry id="Entry_1_2">
+          <text>-</text>
+        </inputEntry>
+        <inputEntry id="Entry_1_3">
+          <text>-</text>
+        </inputEntry>
+        <outputEntry id="Result_1">
+          <text>"snack"</text>
+        </outputEntry>
+      </rule>
+      <rule id="Rule_2">
+        <inputEntry id="Entry_2_1">
+          <text>"high"</text>
+        </inputEntry>
+        <inputEntry id="Entry_2_2">
+          <text>"not enough"</text>
+        </inputEntry>
+        <inputEntry id="Entry_2_3">
+          <text>&lt; 10</text>
+        </inputEntry>
+        <outputEntry id="Result_2">
+          <text>"snack"</text>
+        </outputEntry>
+      </rule>
+      <rule id="Rule_3">
+        <inputEntry id="Entry_3_1">
+          <text>"high"</text>
+        </inputEntry>
+        <inputEntry id="Entry_3_2">
+          <text>"not enough"</text>
+        </inputEntry>
+        <inputEntry id="Entry_3_3">
+          <text>&gt;= 10</text>
+        </inputEntry>
+        <outputEntry id="Result_3">
+          <text>"order"</text>
+        </outputEntry>
+      </rule>
+      <rule id="Rule_4">
+        <inputEntry id="Entry_4_1">
+          <text>"medium"</text>
+        </inputEntry>
+        <inputEntry id="Entry_4_2">
+          <text>-</text>
+        </inputEntry>
+        <inputEntry id="Entry_4_3">
+          <text>&lt; 10</text>
+        </inputEntry>
+        <outputEntry id="Result_4">
+          <text>"cook"</text>
+        </outputEntry>
+      </rule>
+      <rule id="Rule_5">
+        <inputEntry id="Entry_5_1">
+          <text>"medium"</text>
+        </inputEntry>
+        <inputEntry id="Entry_5_2">
+          <text>-</text>
+        </inputEntry>
+        <inputEntry id="Entry_5_3">
+          <text>&gt;= 10</text>
+        </inputEntry>
+        <outputEntry id="Result_5">
+          <text>"order"</text>
+        </outputEntry>
+      </rule>
+      <rule id="Rule_6">
+        <inputEntry id="Entry_6_1">
+          <text>"high"</text>
+        </inputEntry>
+        <inputEntry id="Entry_6_2">
+          <text>"enough"</text>
+        </inputEntry>
+        <inputEntry id="Entry_6_3">
+          <text>&lt; 10</text>
+        </inputEntry>
+        <outputEntry id="Result_6">
+          <text>"cook"</text>
+        </outputEntry>
+      </rule>
+      <rule id="Rule_7">
+        <inputEntry id="Entry_7_1">
+          <text>"high"</text>
+        </inputEntry>
+        <inputEntry id="Entry_7_2">
+          <text>"enough"</text>
+        </inputEntry>
+        <inputEntry id="Entry_7_3">
+          <text>&gt;= 10</text>
+        </inputEntry>
+        <outputEntry id="Result_7">
+          <text>"order"</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <inputData id="InputData_Hunger" name="hunger level" />
+  <inputData id="InputData_Time" name="time available" />
+  <inputData id="InputData_Finances" name="financial situation" />
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram>
+      <dmndi:DMNShape id="Shape_Decision_MealChoice" dmnElementRef="Decision_MealChoice">
+        <dc:Bounds height="80" width="180" x="160" y="100" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="Shape_InputData_Hunger" dmnElementRef="InputData_Hunger">
+        <dc:Bounds height="45" width="125" x="47" y="227" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="Edge_Requirement_Hunger" dmnElementRef="Requirement_Hunger">
+        <di:waypoint x="110" y="227" />
+        <di:waypoint x="205" y="200" />
+        <di:waypoint x="205" y="180" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNShape id="Shape_InputData_Time" dmnElementRef="InputData_Time">
+        <dc:Bounds height="45" width="125" x="187" y="227" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="Edge_Requirement_Time" dmnElementRef="Requirement_Time">
+        <di:waypoint x="250" y="227" />
+        <di:waypoint x="250" y="200" />
+        <di:waypoint x="250" y="180" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNShape id="Shape_InputData_Finances" dmnElementRef="InputData_Finances">
+        <dc:Bounds height="45" width="125" x="327" y="227" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="Edge_Requirement_Finances" dmnElementRef="Requirement_Finances">
+        <di:waypoint x="390" y="227" />
+        <di:waypoint x="295" y="200" />
+        <di:waypoint x="295" y="180" />
+      </dmndi:DMNEdge>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>

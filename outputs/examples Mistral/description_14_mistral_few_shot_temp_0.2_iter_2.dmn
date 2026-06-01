@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:modeler="http://camunda.org/schema/modeler/1.0" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" id="Definitions_0k2p9xq" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.44.0" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.8.0">
+  <decision id="Decision_1y3f8xk" name="meal decision">
+    <informationRequirement id="InformationRequirement_0a1b2c3">
+      <requiredInput href="#InputData_1h4g5i6" />
+    </informationRequirement>
+    <informationRequirement id="InformationRequirement_0d4e5f6">
+      <requiredInput href="#InputData_1j7k8l9" />
+    </informationRequirement>
+    <informationRequirement id="InformationRequirement_0m1n2o3">
+      <requiredInput href="#InputData_1p4q5r6" />
+    </informationRequirement>
+    <decisionTable id="DecisionTable_1s7t8u9" hitPolicy="UNIQUE">
+      <input id="Input_1" label="hunger level">
+        <inputExpression id="InputExpression_1v2w3x4" typeRef="string">
+          <text></text>
+        </inputExpression>
+        <inputValues id="UnaryTests_1y5z6a7">
+          <text>"low","medium","high"</text>
+        </inputValues>
+      </input>
+      <input id="Input_2" label="time available">
+        <inputExpression id="InputExpression_1b8c9d0" typeRef="string">
+          <text></text>
+        </inputExpression>
+        <inputValues id="UnaryTests_1e2f3g4">
+          <text>"enough","not enough"</text>
+        </inputValues>
+      </input>
+      <input id="Input_3" label="financial situation">
+        <inputExpression id="InputExpression_1h5i6j7" typeRef="number">
+          <text></text>
+        </inputExpression>
+      </input>
+      <output id="Output_1" label="meal decision" typeRef="string">
+        <outputValues id="UnaryTests_1k8l9m0">
+          <text>"snack","cook","order","light meal","normal meal","full meal","urgent meal"</text>
+        </outputValues>
+      </output>
+      <rule id="DecisionRule_1n2o3p4">
+        <inputEntry id="UnaryTests_1q5r6s7">
+          <text>"low"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1t8u9v0">
+          <text>-</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1w1x2y3">
+          <text>-</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1z4a5b6">
+          <text>"snack"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1c7d8e9">
+        <inputEntry id="UnaryTests_1f0g1h2">
+          <text>"medium"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1i3j4k5">
+          <text>-</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1l6m7n8">
+          <text>-</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1o9p0q1">
+          <text>"normal meal"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1r2s3t4">
+        <inputEntry id="UnaryTests_1u5v6w7">
+          <text>"high"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1x8y9z0">
+          <text>"not enough"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1a1b2c3">
+          <text>-</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1d4e5f6">
+          <text>"urgent meal"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1g7h8i9">
+        <inputEntry id="UnaryTests_1j0k1l2">
+          <text>"high"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1m3n4o5">
+          <text>"enough"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1p6q7r8">
+          <text>&lt; 10</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1s9t0u1">
+          <text>"cook"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1v2w3x4">
+        <inputEntry id="UnaryTests_1y5z6a7">
+          <text>"high"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1b8c9d0">
+          <text>"enough"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1e2f3g4">
+          <text>&gt;= 10</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1h5i6j7">
+          <text>"order"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1k8l9m0">
+        <inputEntry id="UnaryTests_1n1o2p3">
+          <text>"high"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1q4r5s6">
+          <text>"not enough"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1t7u8v9">
+          <text>&lt; 10</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1w0x1y2">
+          <text>"snack"</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <inputData id="InputData_1h4g5i6" name="hunger level" />
+  <inputData id="InputData_1j7k8l9" name="time available" />
+  <inputData id="InputData_1p4q5r6" name="financial situation" />
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram>
+      <dmndi:DMNShape id="Decision_1y3f8xk_di" dmnElementRef="Decision_1y3f8xk">
+        <dc:Bounds height="80" width="180" x="160" y="100" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="DMNShape_1h4g5i6" dmnElementRef="InputData_1h4g5i6">
+        <dc:Bounds height="45" width="125" x="47" y="227" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="DMNEdge_0a1b2c3" dmnElementRef="InformationRequirement_0a1b2c3">
+        <di:waypoint x="110" y="227" />
+        <di:waypoint x="205" y="200" />
+        <di:waypoint x="205" y="180" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNShape id="DMNShape_1j7k8l9" dmnElementRef="InputData_1j7k8l9">
+        <dc:Bounds height="45" width="125" x="187" y="227" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="DMNEdge_0d4e5f6" dmnElementRef="InformationRequirement_0d4e5f6">
+        <di:waypoint x="250" y="227" />
+        <di:waypoint x="250" y="200" />
+        <di:waypoint x="250" y="180" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNShape id="DMNShape_1p4q5r6" dmnElementRef="InputData_1p4q5r6">
+        <dc:Bounds height="45" width="125" x="327" y="227" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="DMNEdge_0m1n2o3" dmnElementRef="InformationRequirement_0m1n2o3">
+        <di:waypoint x="390" y="227" />
+        <di:waypoint x="295" y="200" />
+        <di:waypoint x="295" y="180" />
+      </dmndi:DMNEdge>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>
