@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:modeler="http://camunda.org/schema/modeler/1.0" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" id="Definitions_0p9r1s2" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.44.0" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.8.0">
+  <decision id="Decision_1adopt" name="pet adoption">
+    <informationRequirement id="InformationRequirement_1">
+      <requiredInput href="#InputData_allergies" />
+    </informationRequirement>
+    <informationRequirement id="InformationRequirement_2">
+      <requiredInput href="#InputData_time" />
+    </informationRequirement>
+    <informationRequirement id="InformationRequirement_3">
+      <requiredInput href="#InputData_kids" />
+    </informationRequirement>
+    <informationRequirement id="InformationRequirement_4">
+      <requiredInput href="#InputData_garden" />
+    </informationRequirement>
+    <decisionTable id="DecisionTable_1" hitPolicy="UNIQUE">
+      <input id="Input_allergies" label="allergies">
+        <inputExpression id="Expr_allergies" typeRef="boolean">
+          <text></text>
+        </inputExpression>
+      </input>
+      <input id="Input_time" label="time availability">
+        <inputExpression id="Expr_time" typeRef="string">
+          <text></text>
+        </inputExpression>
+        <inputValues id="UnaryTests_time">
+          <text>"none","average","a lot"</text>
+        </inputValues>
+      </input>
+      <input id="Input_kids" label="kids">
+        <inputExpression id="Expr_kids" typeRef="boolean">
+          <text></text>
+        </inputExpression>
+      </input>
+      <input id="Input_garden" label="garden">
+        <inputExpression id="Expr_garden" typeRef="boolean">
+          <text></text>
+        </inputExpression>
+      </input>
+      <output id="Output_pet" label="pet adoption" typeRef="string">
+        <outputValues id="UnaryTests_pet">
+          <text>"none","fish","cat","dog"</text>
+        </outputValues>
+      </output>
+      <rule id="Rule_1">
+        <inputEntry id="In_1_1"><text>true</text></inputEntry>
+        <inputEntry id="In_1_2"><text>"none"</text></inputEntry>
+        <inputEntry id="In_1_3"><text>-</text></inputEntry>
+        <inputEntry id="In_1_4"><text>-</text></inputEntry>
+        <outputEntry id="Out_1"><text>"none"</text></outputEntry>
+      </rule>
+      <rule id="Rule_2">
+        <inputEntry id="In_2_1"><text>true</text></inputEntry>
+        <inputEntry id="In_2_2"><text>"average"</text></inputEntry>
+        <inputEntry id="In_2_3"><text>-</text></inputEntry>
+        <inputEntry id="In_2_4"><text>-</text></inputEntry>
+        <outputEntry id="Out_2"><text>"fish"</text></outputEntry>
+      </rule>
+      <rule id="Rule_3">
+        <inputEntry id="In_3_1"><text>true</text></inputEntry>
+        <inputEntry id="In_3_2"><text>"a lot"</text></inputEntry>
+        <inputEntry id="In_3_3"><text>-</text></inputEntry>
+        <inputEntry id="In_3_4"><text>-</text></inputEntry>
+        <outputEntry id="Out_3"><text>"fish"</text></outputEntry>
+      </rule>
+      <rule id="Rule_4">
+        <inputEntry id="In_4_1"><text>false</text></inputEntry>
+        <inputEntry id="In_4_2"><text>"none"</text></inputEntry>
+        <inputEntry id="In_4_3"><text>true</text></inputEntry>
+        <inputEntry id="In_4_4"><text>-</text></inputEntry>
+        <outputEntry id="Out_4"><text>"fish"</text></outputEntry>
+      </rule>
+      <rule id="Rule_5">
+        <inputEntry id="In_5_1"><text>false</text></inputEntry>
+        <inputEntry id="In_5_2"><text>"none"</text></inputEntry>
+        <inputEntry id="In_5_3"><text>false</text></inputEntry>
+        <inputEntry id="In_5_4"><text>-</text></inputEntry>
+        <outputEntry id="Out_5"><text>"none"</text></outputEntry>
+      </rule>
+      <rule id="Rule_6">
+        <inputEntry id="In_6_1"><text>false</text></inputEntry>
+        <inputEntry id="In_6_2"><text>"average"</text></inputEntry>
+        <inputEntry id="In_6_3"><text>true</text></inputEntry>
+        <inputEntry id="In_6_4"><text>-</text></inputEntry>
+        <outputEntry id="Out_6"><text>"fish"</text></outputEntry>
+      </rule>
+      <rule id="Rule_7">
+        <inputEntry id="In_7_1"><text>false</text></inputEntry>
+        <inputEntry id="In_7_2"><text>"average"</text></inputEntry>
+        <inputEntry id="In_7_3"><text>false</text></inputEntry>
+        <inputEntry id="In_7_4"><text>true</text></inputEntry>
+        <outputEntry id="Out_7"><text>"dog"</text></outputEntry>
+      </rule>
+      <rule id="Rule_8">
+        <inputEntry id="In_8_1"><text>false</text></inputEntry>
+        <inputEntry id="In_8_2"><text>"average"</text></inputEntry>
+        <inputEntry id="In_8_3"><text>false</text></inputEntry>
+        <inputEntry id="In_8_4"><text>false</text></inputEntry>
+        <outputEntry id="Out_8"><text>"cat"</text></outputEntry>
+      </rule>
+      <rule id="Rule_9">
+        <inputEntry id="In_9_1"><text>false</text></inputEntry>
+        <inputEntry id="In_9_2"><text>"a lot"</text></inputEntry>
+        <inputEntry id="In_9_3"><text>true</text></inputEntry>
+        <inputEntry id="In_9_4"><text>true</text></inputEntry>
+        <outputEntry id="Out_9"><text>"dog"</text></outputEntry>
+      </rule>
+      <rule id="Rule_10">
+        <inputEntry id="In_10_1"><text>false</text></inputEntry>
+        <inputEntry id="In_10_2"><text>"a lot"</text></inputEntry>
+        <inputEntry id="In_10_3"><text>true</text></inputEntry>
+        <inputEntry id="In_10_4"><text>false</text></inputEntry>
+        <outputEntry id="Out_10"><text>"cat"</text></outputEntry>
+      </rule>
+      <rule id="Rule_11">
+        <inputEntry id="In_11_1"><text>false</text></inputEntry>
+        <inputEntry id="In_11_2"><text>"a lot"</text></inputEntry>
+        <inputEntry id="In_11_3"><text>false</text></inputEntry>
+        <inputEntry id="In_11_4"><text>true</text></inputEntry>
+        <outputEntry id="Out_11"><text>"dog"</text></outputEntry>
+      </rule>
+      <rule id="Rule_12">
+        <inputEntry id="In_12_1"><text>false</text></inputEntry>
+        <inputEntry id="In_12_2"><text>"a lot"</text></inputEntry>
+        <inputEntry id="In_12_3"><text>false</text></inputEntry>
+        <inputEntry id="In_12_4"><text>false</text></inputEntry>
+        <outputEntry id="Out_12"><text>"cat"</text></outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <inputData id="InputData_allergies" name="allergies" />
+  <inputData id="InputData_time" name="time availability" />
+  <inputData id="InputData_kids" name="kids" />
+  <inputData id="InputData_garden" name="garden" />
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram>
+      <dmndi:DMNShape id="Decision_1adopt_di" dmnElementRef="Decision_1adopt">
+        <dc:Bounds height="80" width="180" x="350" y="80" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="InputData_allergies_di" dmnElementRef="InputData_allergies">
+        <dc:Bounds height="45" width="125" x="157" y="257" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="InputData_time_di" dmnElementRef="InputData_time">
+        <dc:Bounds height="45" width="125" x="297" y="257" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="InputData_kids_di" dmnElementRef="InputData_kids">
+        <dc:Bounds height="45" width="125" x="437" y="257" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="InputData_garden_di" dmnElementRef="InputData_garden">
+        <dc:Bounds height="45" width="125" x="577" y="257" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="Edge_1" dmnElementRef="InformationRequirement_1">
+        <di:waypoint x="220" y="257" />
+        <di:waypoint x="386" y="160" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNEdge id="Edge_2" dmnElementRef="InformationRequirement_2">
+        <di:waypoint x="360" y="257" />
+        <di:waypoint x="410" y="160" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNEdge id="Edge_3" dmnElementRef="InformationRequirement_3">
+        <di:waypoint x="500" y="257" />
+        <di:waypoint x="450" y="160" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNEdge id="Edge_4" dmnElementRef="InformationRequirement_4">
+        <di:waypoint x="640" y="257" />
+        <di:waypoint x="494" y="160" />
+      </dmndi:DMNEdge>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>

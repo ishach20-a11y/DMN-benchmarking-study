@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:modeler="http://camunda.org/schema/modeler/1.0" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" id="Definitions_0pet123" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.44.0" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.8.0">
+  <decision id="Decision_pet_adoption" name="Pet Adoption">
+    <informationRequirement id="InformationRequirement_01">
+      <requiredInput href="#InputData_allergies" />
+    </informationRequirement>
+    <informationRequirement id="InformationRequirement_02">
+      <requiredInput href="#InputData_time" />
+    </informationRequirement>
+    <informationRequirement id="InformationRequirement_03">
+      <requiredInput href="#InputData_kids" />
+    </informationRequirement>
+    <informationRequirement id="InformationRequirement_04">
+      <requiredInput href="#InputData_garden" />
+    </informationRequirement>
+    <decisionTable id="DecisionTable_0pet123" hitPolicy="UNIQUE">
+      <input id="Input_allergies" label="has allergies">
+        <inputExpression id="Expr_allergies" typeRef="boolean">
+          <text></text>
+        </inputExpression>
+      </input>
+      <input id="Input_time" label="time available">
+        <inputExpression id="Expr_time" typeRef="string">
+          <text></text>
+        </inputExpression>
+        <inputValues id="UnaryTests_time">
+          <text>"none","average","lot"</text>
+        </inputValues>
+      </input>
+      <input id="Input_kids" label="has kids">
+        <inputExpression id="Expr_kids" typeRef="boolean">
+          <text></text>
+        </inputExpression>
+      </input>
+      <input id="Input_garden" label="has garden">
+        <inputExpression id="Expr_garden" typeRef="boolean">
+          <text></text>
+        </inputExpression>
+      </input>
+      <output id="Output_pet" label="pet to adopt" typeRef="string">
+        <outputValues id="UnaryTests_pet">
+          <text>"none","fish","cat","dog"</text>
+        </outputValues>
+      </output>
+      <rule id="DecisionRule_01">
+        <inputEntry id="UT_01_1">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UT_01_2">
+          <text>"none"</text>
+        </inputEntry>
+        <inputEntry id="UT_01_3">
+          <text>-</text>
+        </inputEntry>
+        <inputEntry id="UT_01_4">
+          <text>-</text>
+        </inputEntry>
+        <outputEntry id="LE_01">
+          <text>"none"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_02">
+        <inputEntry id="UT_02_1">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UT_02_2">
+          <text>"average"</text>
+        </inputEntry>
+        <inputEntry id="UT_02_3">
+          <text>-</text>
+        </inputEntry>
+        <inputEntry id="UT_02_4">
+          <text>-</text>
+        </inputEntry>
+        <outputEntry id="LE_02">
+          <text>"fish"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_03">
+        <inputEntry id="UT_03_1">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UT_03_2">
+          <text>"lot"</text>
+        </inputEntry>
+        <inputEntry id="UT_03_3">
+          <text>-</text>
+        </inputEntry>
+        <inputEntry id="UT_03_4">
+          <text>-</text>
+        </inputEntry>
+        <outputEntry id="LE_03">
+          <text>"fish"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_04">
+        <inputEntry id="UT_04_1">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UT_04_2">
+          <text>"none"</text>
+        </inputEntry>
+        <inputEntry id="UT_04_3">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UT_04_4">
+          <text>-</text>
+        </inputEntry>
+        <outputEntry id="LE_04">
+          <text>"none"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_05">
+        <inputEntry id="UT_05_1">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UT_05_2">
+          <text>"none"</text>
+        </inputEntry>
+        <inputEntry id="UT_05_3">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UT_05_4">
+          <text>-</text>
+        </inputEntry>
+        <outputEntry id="LE_05">
+          <text>"fish"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_06">
+        <inputEntry id="UT_06_1">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UT_06_2">
+          <text>"average"</text>
+        </inputEntry>
+        <inputEntry id="UT_06_3">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UT_06_4">
+          <text>-</text>
+        </inputEntry>
+        <outputEntry id="LE_06">
+          <text>"fish"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_07">
+        <inputEntry id="UT_07_1">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UT_07_2">
+          <text>"average"</text>
+        </inputEntry>
+        <inputEntry id="UT_07_3">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UT_07_4">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LE_07">
+          <text>"dog"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_08">
+        <inputEntry id="UT_08_1">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UT_08_2">
+          <text>"average"</text>
+        </inputEntry>
+        <inputEntry id="UT_08_3">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UT_08_4">
+          <text>false</text>
+        </inputEntry>
+        <outputEntry id="LE_08">
+          <text>"cat"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_09">
+        <inputEntry id="UT_09_1">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UT_09_2">
+          <text>"lot"</text>
+        </inputEntry>
+        <inputEntry id="UT_09_3">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UT_09_4">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LE_09">
+          <text>"dog"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_10">
+        <inputEntry id="UT_10_1">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UT_10_2">
+          <text>"lot"</text>
+        </inputEntry>
+        <inputEntry id="UT_10_3">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UT_10_4">
+          <text>false</text>
+        </inputEntry>
+        <outputEntry id="LE_10">
+          <text>"cat"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_11">
+        <inputEntry id="UT_11_1">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UT_11_2">
+          <text>"lot"</text>
+        </inputEntry>
+        <inputEntry id="UT_11_3">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UT_11_4">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LE_11">
+          <text>"dog"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_12">
+        <inputEntry id="UT_12_1">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UT_12_2">
+          <text>"lot"</text>
+        </inputEntry>
+        <inputEntry id="UT_12_3">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UT_12_4">
+          <text>false</text>
+        </inputEntry>
+        <outputEntry id="LE_12">
+          <text>"cat"</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <inputData id="InputData_allergies" name="has allergies" />
+  <inputData id="InputData_time" name="time available" />
+  <inputData id="InputData_kids" name="has kids" />
+  <inputData id="InputData_garden" name="has garden" />
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram>
+      <dmndi:DMNShape id="Shape_Decision_pet_adoption" dmnElementRef="Decision_pet_adoption">
+        <dc:Bounds height="80" width="180" x="310" y="80" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="Shape_InputData_allergies" dmnElementRef="InputData_allergies">
+        <dc:Bounds height="45" width="125" x="150" y="220" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="Edge_01" dmnElementRef="InformationRequirement_01">
+        <di:waypoint x="212" y="220" />
+        <di:waypoint x="346" y="160" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNShape id="Shape_InputData_time" dmnElementRef="InputData_time">
+        <dc:Bounds height="45" width="125" x="285" y="220" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="Edge_02" dmnElementRef="InformationRequirement_02">
+        <di:waypoint x="347" y="220" />
+        <di:waypoint x="382" y="160" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNShape id="Shape_InputData_kids" dmnElementRef="InputData_kids">
+        <dc:Bounds height="45" width="125" x="420" y="220" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="Edge_03" dmnElementRef="InformationRequirement_03">
+        <di:waypoint x="482" y="220" />
+        <di:waypoint x="418" y="160" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNShape id="Shape_InputData_garden" dmnElementRef="InputData_garden">
+        <dc:Bounds height="45" width="125" x="555" y="220" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="Edge_04" dmnElementRef="InformationRequirement_04">
+        <di:waypoint x="617" y="220" />
+        <di:waypoint x="454" y="160" />
+      </dmndi:DMNEdge>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>

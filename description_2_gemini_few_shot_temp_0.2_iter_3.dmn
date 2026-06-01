@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:modeler="http://camunda.org/schema/modeler/1.0" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" id="Definitions_PetAdoption" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.44.0" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.8.0">
+  <decision id="Decision_PetAdoption" name="Pet Adoption Decision">
+    <informationRequirement id="Requirement_01">
+      <requiredInput href="#InputData_Allergies" />
+    </informationRequirement>
+    <informationRequirement id="Requirement_02">
+      <requiredInput href="#InputData_Time" />
+    </informationRequirement>
+    <informationRequirement id="Requirement_03">
+      <requiredInput href="#InputData_Kids" />
+    </informationRequirement>
+    <informationRequirement id="Requirement_04">
+      <requiredInput href="#InputData_Garden" />
+    </informationRequirement>
+    <decisionTable id="DecisionTable_01" hitPolicy="UNIQUE">
+      <input id="Input_01" label="allergies">
+        <inputExpression id="InputExpression_01" typeRef="boolean">
+          <text></text>
+        </inputExpression>
+      </input>
+      <input id="Input_02" label="time available">
+        <inputExpression id="InputExpression_02" typeRef="string">
+          <text></text>
+        </inputExpression>
+        <inputValues id="UnaryTests_Time">
+          <text>"none","average","lot"</text>
+        </inputValues>
+      </input>
+      <input id="Input_03" label="has kids">
+        <inputExpression id="InputExpression_03" typeRef="boolean">
+          <text></text>
+        </inputExpression>
+      </input>
+      <input id="Input_04" label="has garden">
+        <inputExpression id="InputExpression_04" typeRef="boolean">
+          <text></text>
+        </inputExpression>
+      </input>
+      <output id="Output_01" label="pet adopted" typeRef="string">
+        <outputValues id="UnaryTests_Pet">
+          <text>"none","fish","cat","dog"</text>
+        </outputValues>
+      </output>
+      <rule id="Rule_01">
+        <inputEntry id="Entry_01_01">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="Entry_01_02">
+          <text>"none"</text>
+        </inputEntry>
+        <inputEntry id="Entry_01_03">
+          <text

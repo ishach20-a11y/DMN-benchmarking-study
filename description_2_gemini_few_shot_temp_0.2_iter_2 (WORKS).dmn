@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:modeler="http://camunda.org/schema/modeler/1.0" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" id="Definitions_PetAdoption" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.44.0" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.8.0">
+  <decision id="Decision_PetAdoption" name="Pet Adoption Decision">
+    <informationRequirement id="InformationRequirement_Allergies">
+      <requiredInput href="#InputData_Allergies" />
+    </informationRequirement>
+    <informationRequirement id="InformationRequirement_Time">
+      <requiredInput href="#InputData_Time" />
+    </informationRequirement>
+    <informationRequirement id="InformationRequirement_Kids">
+      <requiredInput href="#InputData_Kids" />
+    </informationRequirement>
+    <informationRequirement id="InformationRequirement_Garden">
+      <requiredInput href="#InputData_Garden" />
+    </informationRequirement>
+    <decisionTable id="DecisionTable_PetAdoption" hitPolicy="UNIQUE">
+      <input id="Input_Allergies" label="allergies">
+        <inputExpression id="InputExpression_Allergies" typeRef="boolean">
+          <text></text>
+        </inputExpression>
+        <inputValues id="UnaryTests_Allergies">
+          <text>true,false</text>
+        </inputValues>
+      </input>
+      <input id="Input_Time" label="time available">
+        <inputExpression id="InputExpression_Time" typeRef="string">
+          <text></text>
+        </inputExpression>
+        <inputValues id="UnaryTests_Time">
+          <text>"none","average","lot"</text>
+        </inputValues>
+      </input>
+      <input id="Input_Kids" label="have kids">
+        <inputExpression id="InputExpression_Kids" typeRef="boolean">
+          <text></text>
+        </inputExpression>
+      </input>
+      <input id="Input_Garden" label="have garden">
+        <inputExpression id="InputExpression_Garden" typeRef="boolean">
+          <text></text>
+        </inputExpression>
+      </input>
+      <output id="Output_Pet" label="adopted pet" typeRef="string">
+        <outputValues id="UnaryTests_Pet">
+          <text>"none","fish","dog","cat"</text>
+        </outputValues>
+      </output>
+      <rule id="DecisionRule_1">
+        <inputEntry id="UnaryTests_1_1">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1_2">
+          <text>"none"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1_3">
+          <text>-</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1_4">
+          <text>-</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1">
+          <text>"none"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_2">
+        <inputEntry id="UnaryTests_2_1">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_2_2">
+          <text>"none"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_2_3">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_2_4">
+          <text>-</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_2">
+          <text>"none"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_3">
+        <inputEntry id="UnaryTests_3_1">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_3_2">
+          <text>"average"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_3_3">
+          <text>-</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_3_4">
+          <text>-</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_3">
+          <text>"fish"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_4">
+        <inputEntry id="UnaryTests_4_1">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_4_2">
+          <text>"lot"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_4_3">
+          <text>-</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_4_4">
+          <text>-</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_4">
+          <text>"fish"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_5">
+        <inputEntry id="UnaryTests_5_1">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_5_2">
+          <text>"none"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_5_3">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_5_4">
+          <text>-</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_5">
+          <text>"fish"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_6">
+        <inputEntry id="UnaryTests_6_1">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_6_2">
+          <text>"average"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_6_3">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_6_4">
+          <text>-</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_6">
+          <text>"fish"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_7">
+        <inputEntry id="UnaryTests_7_1">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_7_2">
+          <text>"lot"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_7_3">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_7_4">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_7">
+          <text>"dog"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_8">
+        <inputEntry id="UnaryTests_8_1">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_8_2">
+          <text>"average"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_8_3">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_8_4">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_8">
+          <text>"dog"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_9">
+        <inputEntry id="UnaryTests_9_1">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_9_2">
+          <text>"lot"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_9_3">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_9_4">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_9">
+          <text>"dog"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_10">
+        <inputEntry id="UnaryTests_10_1">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_10_2">
+          <text>"lot"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_10_3">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_10_4">
+          <text>false</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_10">
+          <text>"cat"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_11">
+        <inputEntry id="UnaryTests_11_1">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_11_2">
+          <text>"average"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_11_3">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_11_4">
+          <text>false</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_11">
+          <text>"cat"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_12">
+        <inputEntry id="UnaryTests_12_1">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_12_2">
+          <text>"lot"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_12_3">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_12_4">
+          <text>false</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_12">
+          <text>"cat"</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <inputData id="InputData_Allergies" name="allergies" />
+  <inputData id="InputData_Time" name="time available" />
+  <inputData id="InputData_Kids" name="have kids" />
+  <inputData id="InputData_Garden" name="have garden" />
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram>
+      <dmndi:DMNShape id="Decision_PetAdoption_di" dmnElementRef="Decision_PetAdoption">
+        <dc:Bounds height="80" width="180" x="300" y="100" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="InputData_Allergies_di" dmnElementRef="InputData_Allergies">
+        <dc:Bounds height="45" width="125" x="50" y="250" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="InputData_Time_di" dmnElementRef="InputData_Time">
+        <dc:Bounds height="45" width="125" x="200" y="250" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="InputData_Kids_di" dmnElementRef="InputData_Kids">
+        <dc:Bounds height="45" width="125" x="350" y="250" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="InputData_Garden_di" dmnElementRef="InputData_Garden">
+        <dc:Bounds height="45" width="125" x="500" y="250" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="Edge_Allergies" dmnElementRef="InformationRequirement_Allergies">
+        <di:waypoint x="112" y="250" />
+        <di:waypoint x="345" y="180" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNEdge id="Edge_Time" dmnElementRef="InformationRequirement_Time">
+        <di:waypoint x="262" y="250" />
+        <di:waypoint x="390" y="180" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNEdge id="Edge_Kids" dmnElementRef="InformationRequirement_Kids">
+        <di:waypoint x="412" y="250" />
+        <di:waypoint x="435" y="180" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNEdge id="Edge_Garden" dmnElementRef="InformationRequirement_Garden">
+        <di:waypoint x="562" y="250" />
+        <di:waypoint x="480" y="180" />
+      </dmndi:DMNEdge>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>

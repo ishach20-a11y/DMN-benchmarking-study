@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:modeler="http://camunda.org/schema/modeler/1.0" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" id="Definitions_PetChoice" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.44.0" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.8.0">
+  <decision id="Decision_PetAdoption" name="Pet Adoption Decision">
+    <informationRequirement id="InformationRequirement_Allergies">
+      <requiredInput href="#InputData_Allergies" />
+    </informationRequirement>
+    <informationRequirement id="InformationRequirement_Time">
+      <requiredInput href="#InputData_Time" />
+    </informationRequirement>
+    <informationRequirement id="InformationRequirement_Kids">
+      <requiredInput href="#InputData_Kids" />
+    </informationRequirement>
+    <informationRequirement id="InformationRequirement_Garden">
+      <requiredInput href="#InputData_Garden" />
+    </informationRequirement>
+    <decisionTable id="DecisionTable_PetAdoption" hitPolicy="UNIQUE">
+      <input id="Input_Allergies" label="allergies">
+        <inputExpression id="Expr_Allergies" typeRef="boolean">
+          <text></text>
+        </inputExpression>
+      </input>
+      <input id="Input_Time" label="time available">
+        <inputExpression id="Expr_Time" typeRef="string">
+          <text></text>
+        </inputExpression>
+        <inputValues id="Values_Time">
+          <text>"none","average","lot"</text>
+        </inputValues>
+      </input>
+      <input id="Input_Kids" label="has kids">
+        <inputExpression id="Expr_Kids" typeRef="boolean">
+          <text></text>
+        </inputExpression>
+      </input>
+      <input id="Input_Garden" label="has garden">
+        <inputExpression id="Expr_Garden" typeRef="boolean">
+          <text></text>
+        </inputExpression>
+      </input>
+      <output id="Output_Pet" label="pet adopted" typeRef="string">
+        <outputValues id="Values_Pet">
+          <text>"none","fish","cat","dog"</text>
+        </outputValues>
+      </output>
+      <rule id="Rule_1">
+        <inputEntry id="In_1_1">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="In_1_2">
+          <text>"none"</text>
+        </inputEntry>
+        <inputEntry id="In_1_3">
+          <text>-</text>
+        </inputEntry>
+        <inputEntry id="In_1_4">
+          <text>-</text>
+        </inputEntry>
+        <outputEntry id="Out_1">
+          <text>"none"</text>
+        </outputEntry>
+      </rule>
+      <rule id="Rule_2">
+        <inputEntry id="In_2_1">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="In_2_2">
+          <text>"none"</text>
+        </inputEntry>
+        <inputEntry id="In_2_3">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="In_2_4">
+          <text>-</text>
+        </inputEntry>
+        <outputEntry id="Out_2">
+          <text>"none"</text>
+        </outputEntry>
+      </rule>
+      <rule id="Rule_3">
+        <inputEntry id="In_3_1">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="In_3_2">
+          <text>"average"</text>
+        </inputEntry>
+        <inputEntry id="In_3_3">
+          <text>-</text>
+        </inputEntry>
+        <inputEntry id="In_3_4">
+          <text>-</text>
+        </inputEntry>
+        <outputEntry id="Out_3">
+          <text>"fish"</text>
+        </outputEntry>
+      </rule>
+      <rule id="Rule_4">
+        <inputEntry id="In_4_1">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="In_4_2">
+          <text>"lot"</text>
+        </inputEntry>
+        <inputEntry id="In_4_3">
+          <text>-</text>
+        </inputEntry>
+        <inputEntry id="In_4_4">
+          <text>-</text>
+        </inputEntry>
+        <outputEntry id="Out_4">
+          <text>"fish"</text>
+        </outputEntry>
+      </rule>
+      <rule id="Rule_5">
+        <inputEntry id="In_5_1">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="In_5_2">
+          <text>"none"</text>
+        </inputEntry>
+        <inputEntry id="In_5_3">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="In_5_4">
+          <text>-</text>
+        </inputEntry>
+        <outputEntry id="Out_5">
+          <text>"fish"</text>
+        </outputEntry>
+      </rule>
+      <rule id="Rule_6">
+        <inputEntry id="In_6_1">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="In_6_2">
+          <text>"average"</text>
+        </inputEntry>
+        <inputEntry id="In_6_3">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="In_6_4">
+          <text>-</text>
+        </inputEntry>
+        <outputEntry id="Out_6">
+          <text>"fish"</text>
+        </outputEntry>
+      </rule>
+      <rule id="Rule_7">
+        <inputEntry id="In_7_1">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="In_7_2">
+          <text>"lot"</text>
+        </inputEntry>
+        <inputEntry id="In_7_3">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="In_7_4">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="Out_7">
+          <text>"dog"</text>
+        </outputEntry>
+      </rule>
+      <rule id="Rule_8">
+        <inputEntry id="In_8_1">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="In_8_2">
+          <text>"average"</text>
+        </inputEntry>
+        <inputEntry id="In_8_3">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="In_8_4">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="Out_8">
+          <text>"dog"</text>
+        </outputEntry>
+      </rule>
+      <rule id="Rule_9">
+        <inputEntry id="In_9_1">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="In_9_2">
+          <text>"lot"</text>
+        </inputEntry>
+        <inputEntry id="In_9_3">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="In_9_4">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="Out_9">
+          <text>"dog"</text>
+        </outputEntry>
+      </rule>
+      <rule id="Rule_10">
+        <inputEntry id="In_10_1">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="In_10_2">
+          <text>"lot"</text>
+        </inputEntry>
+        <inputEntry id="In_10_3">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="In_10_4">
+          <text>false</text>
+        </inputEntry>
+        <outputEntry id="Out_10">
+          <text>"cat"</text>
+        </outputEntry>
+      </rule>
+      <rule id="Rule_11">
+        <inputEntry id="In_11_1">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="In_11_2">
+          <text>"average"</text>
+        </inputEntry>
+        <inputEntry id="In_11_3">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="In_11_4">
+          <text>false</text>
+        </inputEntry>
+        <outputEntry id="Out_11">
+          <text>"cat"</text>
+        </outputEntry>
+      </rule>
+      <rule id="Rule_12">
+        <inputEntry id="In_12_1">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="In_12_2">
+          <text>"lot"</text>
+        </inputEntry>
+        <inputEntry id="In_12_3">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="In_12_4">
+          <text>false</text>
+        </inputEntry>
+        <outputEntry id="Out_12">
+          <text>"cat"</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <inputData id="InputData_Allergies" name="allergies" />
+  <inputData id="InputData_Time" name="time available" />
+  <inputData id="InputData_Kids" name="has kids" />
+  <inputData id="InputData_Garden" name="has garden" />
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram>
+      <dmndi:DMNShape id="Shape_Decision_PetAdoption" dmnElementRef="Decision_PetAdoption">
+        <dc:Bounds height="80" width="180" x="350" y="80" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="Shape_Input_Allergies" dmnElementRef="InputData_Allergies">
+        <dc:Bounds height="45" width="125" x="120" y="250" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="Shape_Input_Time" dmnElementRef="InputData_Time">
+        <dc:Bounds height="45" width="125" x="270" y="250" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="Shape_Input_Kids" dmnElementRef="InputData_Kids">
+        <dc:Bounds height="45" width="125" x="420" y="250" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="Shape_Input_Garden" dmnElementRef="InputData_Garden">
+        <dc:Bounds height="45" width="125" x="570" y="250" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="Edge_Allergies" dmnElementRef="InformationRequirement_Allergies">
+        <di:waypoint x="182" y="250" />
+        <di:waypoint x="410" y="160" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNEdge id="Edge_Time" dmnElementRef="InformationRequirement_Time">
+        <di:waypoint x="332" y="250" />
+        <di:waypoint x="425" y="160" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNEdge id="Edge_Kids" dmnElementRef="InformationRequirement_Kids">
+        <di:waypoint x="482" y="250" />
+        <di:waypoint x="455" y="160" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNEdge id="Edge_Garden" dmnElementRef="InformationRequirement_Garden">
+        <di:waypoint x="632" y="250" />
+        <di:waypoint x="470" y="160" />
+      </dmndi:DMNEdge>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>
